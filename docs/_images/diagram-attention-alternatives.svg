@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 330" font-family="'Noto Sans Khmer','Khmer OS',sans-serif">
+  <rect width="860" height="330" rx="12" fill="#12151d"/>
+
+  <!-- baseline -->
+  <rect x="255" y="18" width="350" height="52" rx="10" fill="#1f2430" stroke="#3d7ec2" stroke-width="2"/>
+  <text x="430" y="40" text-anchor="middle" font-size="14" fill="#d8dee9">Multi-Head Attention (MHA)</text>
+  <text x="430" y="59" text-anchor="middle" font-size="12" fill="#9aa4b2">មូលដ្ឋាន — ក្បាលនីមួយៗមាន Q, K, V ដាច់ដោយឡែក</text>
+
+  <!-- connector -->
+  <line x1="430" y1="70" x2="430" y2="88" stroke="#4cc38a" stroke-width="2"/>
+  <text x="430" y="102" text-anchor="middle" font-size="11" fill="#4cc38a">ជម្រើសជំនួសដើម្បីកាត់បន្ថយអង្គចងចាំ / ការគណនា</text>
+
+  <!-- row 1 -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="20" y="118" width="265" height="72" rx="10" fill="#1d2c3d" stroke="#3d7ec2"/>
+    <text x="152" y="140" fill="#d8dee9" font-size="13">Grouped-Query Attention</text>
+    <text x="152" y="158" fill="#9aa4b2">GQA — ក្បាល Q ច្រើនចែករំលែក K/V មួយក្រុម</text>
+    <text x="152" y="176" fill="#6f7a89" font-size="11">កាត់បន្ថយអង្គចងចាំ KV cache</text>
+
+    <rect x="298" y="118" width="265" height="72" rx="10" fill="#1d2c3d" stroke="#3d7ec2"/>
+    <text x="430" y="140" fill="#d8dee9" font-size="13">Multi-Head Latent Attention</text>
+    <text x="430" y="158" fill="#9aa4b2">MLA — បង្ហាប់ជា latent vector ជំនួស KV</text>
+    <text x="430" y="176" fill="#6f7a89" font-size="11">សន្សំអង្គចងចាំខ្លាំងជាង GQA</text>
+
+    <rect x="576" y="118" width="265" height="72" rx="10" fill="#1d2c3d" stroke="#3d7ec2"/>
+    <text x="708" y="140" fill="#d8dee9" font-size="13">Sliding Window Attention</text>
+    <text x="708" y="158" fill="#9aa4b2">SWA — មើលតែ token ក្នុងបង្អួចជិតខាង</text>
+    <text x="708" y="176" fill="#6f7a89" font-size="11">កាត់បន្ថយការគណនា O(n²)</text>
+  </g>
+
+  <!-- row 2 -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="20" y="204" width="265" height="72" rx="10" fill="#1d3a2e" stroke="#3dc283"/>
+    <text x="152" y="226" fill="#d8dee9" font-size="13">Gated DeltaNet</text>
+    <text x="152" y="244" fill="#9aa4b2">វ៉ារ្យ៉ង់ linear attention</text>
+    <text x="152" y="262" fill="#6f7a89" font-size="11">ជៀសវាង O(n²) ទាំងស្រុង</text>
+
+    <rect x="298" y="204" width="265" height="72" rx="10" fill="#1d3a2e" stroke="#3dc283"/>
+    <text x="430" y="226" fill="#d8dee9" font-size="13">DeepSeek Sparse Attention</text>
+    <text x="430" y="244" fill="#9aa4b2">DSA — ជ្រើសរើសតែ token សំខាន់ៗ</text>
+    <text x="430" y="262" fill="#6f7a89" font-size="11">ពង្រីក context ដោយមិនផ្ទុះអង្គចងចាំ</text>
+
+    <rect x="576" y="204" width="265" height="72" rx="10" fill="#1d3a2e" stroke="#3dc283"/>
+    <text x="708" y="226" fill="#d8dee9" font-size="13">Cross-Layer KV Sharing</text>
+    <text x="708" y="244" fill="#9aa4b2">ចែករំលែក KV រវាងស្រទាប់</text>
+    <text x="708" y="262" fill="#6f7a89" font-size="11">ប្រើក្នុង Gemma 4 E2B / E4B</text>
+  </g>
+
+  <rect x="20" y="290" width="820" height="28" rx="8" fill="#1f2430" stroke="#2c3444"/>
+  <text x="430" y="309" text-anchor="middle" font-size="12" fill="#9aa4b2">រូបភាពដើម រចនាឡើងសម្រាប់ឯកសារសហគមន៍ខ្មែរនេះ — មិនមែនជារូបភាពរបស់សៀវភៅទេ</text>
+</svg>

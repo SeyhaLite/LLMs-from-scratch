@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" font-family="'Noto Sans Khmer','Khmer OS',sans-serif">
+  <rect width="860" height="300" rx="12" fill="#12151d"/>
+
+  <!-- source model -->
+  <rect x="20" y="104" width="180" height="92" rx="10" fill="#1f2430" stroke="#3d7ec2" stroke-width="2"/>
+  <text x="110" y="138" text-anchor="middle" font-size="14" fill="#d8dee9">ម៉ូដែល GPT</text>
+  <text x="110" y="158" text-anchor="middle" font-size="12" fill="#9aa4b2">ជំពូក ៤ និង ៥</text>
+  <text x="110" y="178" text-anchor="middle" font-size="11" fill="#6f7a89">សាងសង់ពីមូលដ្ឋាន</text>
+
+  <!-- trunk -->
+  <line x1="200" y1="150" x2="238" y2="150" stroke="#4cc38a" stroke-width="2"/>
+  <polygon points="238,145 248,150 238,155" fill="#4cc38a"/>
+  <line x1="248" y1="40" x2="248" y2="260" stroke="#4cc38a" stroke-width="2"/>
+
+  <!-- branch connectors -->
+  <g stroke="#4cc38a" stroke-width="2" fill="#4cc38a">
+    <line x1="248" y1="46"  x2="286" y2="46"/>  <polygon points="286,41 296,46 286,51"/>
+    <line x1="248" y1="99"  x2="286" y2="99"/>  <polygon points="286,94 296,99 286,104"/>
+    <line x1="248" y1="152" x2="286" y2="152"/> <polygon points="286,147 296,152 286,157"/>
+    <line x1="248" y1="205" x2="286" y2="205"/> <polygon points="286,200 296,205 286,210"/>
+    <line x1="248" y1="256" x2="286" y2="256"/> <polygon points="286,251 296,256 286,261"/>
+  </g>
+
+  <!-- column 1 -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="296" y="22"  width="250" height="48" rx="9" fill="#1d3a2e" stroke="#3dc283"/>
+    <text x="421" y="42"  fill="#d8dee9" font-size="13">Llama 3.2</text>
+    <text x="421" y="60"  fill="#9aa4b2" font-size="11">បំលែងពី GPT + ផ្ទុក weights ពី Meta AI</text>
+
+    <rect x="296" y="75"  width="250" height="48" rx="9" fill="#1d3a2e" stroke="#3dc283"/>
+    <text x="421" y="95"  fill="#d8dee9" font-size="13">Qwen3 (Dense + MoE)</text>
+    <text x="421" y="113" fill="#9aa4b2" font-size="11">0.6B និង 30B-A3B Mixture-of-Experts</text>
+
+    <rect x="296" y="128" width="250" height="48" rx="9" fill="#1d3a2e" stroke="#3dc283"/>
+    <text x="421" y="148" fill="#d8dee9" font-size="13">Gemma 3 · Gemma 4</text>
+    <text x="421" y="166" fill="#9aa4b2" font-size="11">270M · E2B និង E4B dense</text>
+
+    <rect x="296" y="181" width="250" height="48" rx="9" fill="#1d3a2e" stroke="#3dc283"/>
+    <text x="421" y="201" fill="#d8dee9" font-size="13">Olmo 3 · Tiny Aya</text>
+    <text x="421" y="219" fill="#9aa4b2" font-size="11">7B និង 32B (Base / Instruct / Think)</text>
+
+    <rect x="296" y="234" width="250" height="48" rx="9" fill="#1d3a2e" stroke="#3dc283"/>
+    <text x="421" y="254" fill="#d8dee9" font-size="13">Qwen3.5</text>
+    <text x="421" y="272" fill="#9aa4b2" font-size="11">កំណែធម្មតា និងកំណែប្រើ KV cache</text>
+  </g>
+
+  <!-- right note -->
+  <rect x="576" y="22" width="264" height="260" rx="10" fill="#1f2430" stroke="#2c3444"/>
+  <text x="708" y="50" text-anchor="middle" font-size="13" fill="#d8dee9">អ្វីដែលអ្នកនឹងរៀន</text>
+  <g font-size="12" fill="#9aa4b2" text-anchor="middle">
+    <text x="708" y="82">· សាងសង់ស្ថាបត្យកម្មថ្មីពីមូលដ្ឋាន</text>
+    <text x="708" y="108">· ផ្ទុក pretrained weights</text>
+    <text x="708" y="134">· អនុវត្ត KV cache</text>
+    <text x="708" y="160">· ប្រៀបធៀបជាមួយ Hugging Face</text>
+    <text x="708" y="186">· សាកល្បង MoE និង RMSNorm</text>
+    <text x="708" y="212">· យល់ពីភាពខុសគ្នានៃការរចនា</text>
+  </g>
+  <text x="708" y="252" text-anchor="middle" font-size="11" fill="#6f7a89">ថត ch05/07 – ch05/17</text>
+
+  <text x="430" y="296" text-anchor="middle" font-size="11" fill="#6f7a89">រូបភាពដើម រចនាឡើងសម្រាប់ឯកសារសហគមន៍ខ្មែរនេះ — មិនមែនជារូបភាពរបស់សៀវភៅទេ</text>
+</svg>

@@ -85,13 +85,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%97%E1%9E%B6%E1%9E%82%E1%9E%94%E1%9E%93%E1%9F%92%E1%9E%90%E1%9F%82%E1%9E%98.html">ភាគបន្ថែម (Appendices A–E)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">សម្ភារៈបន្ថែម (Bonus Material)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#working-with-text-data">ជំពូក ២ — Working With Text Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#coding-attention-mechanisms">ជំពូក ៣ — Coding Attention Mechanisms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#implementing-a-gpt-model-from-scratch">ជំពូក ៤ — Implementing a GPT Model From Scratch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pretraining-on-unlabeled-data">ជំពូក ៥ — Pretraining on Unlabeled Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#finetuning-for-classification">ជំពូក ៦ — Finetuning for classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#finetuning-to-follow-instructions">ជំពូក ៧ — Finetuning to follow instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup">ការដំឡើង (Setup)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-text-data">ជំពូក ២ — ការធ្វើការជាមួយទិន្នន័យអត្ថបទ (Working With Text Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#attention-coding-attention-mechanisms">ជំពូក ៣ — សរសេរកូដយន្តការ Attention (Coding Attention Mechanisms)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gpt-implementing-a-gpt-model-from-scratch">ជំពូក ៤ — អនុវត្តម៉ូដែល GPT ពីមូលដ្ឋាន (Implementing a GPT Model From Scratch)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pretraining-pretraining-on-unlabeled-data">ជំពូក ៥ — Pretraining លើទិន្នន័យគ្មានស្លាក (Pretraining on Unlabeled Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#finetuning-finetuning-for-classification">ជំពូក ៦ — Finetuning សម្រាប់ការចាត់ថ្នាក់ (Finetuning for Classification)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#finetuning-finetuning-to-follow-instructions">ជំពូក ៧ — Finetuning ដើម្បីធ្វើតាមការណែនាំ (Finetuning to Follow Instructions)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reasoning-from-scratch">ពីឃ្លាំង Reasoning From Scratch</a></li>
 </ul>
 </li>
@@ -130,123 +130,144 @@
 <p class="admonition-title">Note</p>
 <p>ប្រភព៖ ផ្នែក <em>Bonus Material</em> នៃ
 <a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/blob/main/README.md">README.md</a> របស់ upstream។
-ថតទាំងនេះជាសម្ភារៈស្រេចចិត្ត (optional) សម្រាប់អ្នកអានដែលចាប់អារម្មណ៍។</p>
+ថតទាំងនេះជាសម្ភារៈស្រេចចិត្ត (optional) សម្រាប់អ្នកអានដែលចាប់អារម្មណ៍។
+ចំណងជើងទាំងអស់ត្រូវបានបកប្រែជាភាសាខ្មែរ ដោយរក្សាពាក្យបច្ចេកទេសអង់គ្លេសដើម។
+រូបភាពក្នុងទំព័រនេះជា <strong>ដ្យាក្រាមដើមរបស់សហគមន៍ខ្មែរ</strong> — រូបភាពរបស់សៀវភៅ
+(Manning) មិនត្រូវបានចម្លងមកទីនេះទេ តាមគោលការណ៍ក្នុង LICENSE។</p>
 </div>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
+<h2>ការដំឡើង (Setup)<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/setup/01_optional-python-setup-preferences">Python Setup Tips</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/setup/02_installing-python-libraries">Installing Python Packages and Libraries Used in This Book</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/setup/03_optional-docker-environment">Docker Environment Setup Guide</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/setup/01_optional-python-setup-preferences">គន្លឹះការដំឡើង Python (Python Setup Tips)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/setup/02_installing-python-libraries">ការដំឡើង Package និងបណ្ណាល័យ Python ដែលប្រើក្នុងសៀវភៅនេះ</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/setup/03_optional-docker-environment">មគ្គុទ្ទេសក៍ដំឡើងបរិស្ថាន Docker</a></p></li>
 </ul>
 </section>
 <section id="working-with-text-data">
-<h2>ជំពូក ២ — Working With Text Data<a class="headerlink" href="#working-with-text-data" title="Link to this heading"></a></h2>
+<h2>ជំពូក ២ — ការធ្វើការជាមួយទិន្នន័យអត្ថបទ (Working With Text Data)<a class="headerlink" href="#working-with-text-data" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក២/05_bpe-from-scratch/bpe-from-scratch-simple.ipynb">Byte Pair Encoding (BPE) Tokenizer From Scratch</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch02/02_bonus_bytepair-encoder">Comparing Various Byte Pair Encoding (BPE) Implementations</a></p></li>
-<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch02/03_bonus_embedding-vs-matmul">Understanding the Difference Between Embedding Layers and Linear Layers</a></p></li>
-<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch02/04_bonus_dataloader-intuition">Dataloader Intuition With Simple Numbers</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch02/05_bpe-from-scratch">BPE From Scratch</a></p></li>
-<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch02/06_bonus_simple-tokenizer-v3">SimpleTokenizerV3 variant</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក២/05_bpe-from-scratch/bpe-from-scratch-simple.ipynb">សាងសង់ Byte Pair Encoding (BPE) Tokenizer ពីមូលដ្ឋាន</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch02/02_bonus_bytepair-encoder">ប្រៀបធៀបការអនុវត្ត Byte Pair Encoding (BPE) ផ្សេងៗ</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch02/03_bonus_embedding-vs-matmul">ស្វែងយល់ភាពខុសគ្នារវាង Embedding Layer និង Linear Layer</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch02/04_bonus_dataloader-intuition">ការយល់ដឹងអំពី Dataloader ដោយប្រើលេខសាមញ្ញ</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch02/05_bpe-from-scratch">សាងសង់ BPE ពីមូលដ្ឋាន</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch02/06_bonus_simple-tokenizer-v3">កំណែ SimpleTokenizerV3</a></p></li>
 </ul>
 </section>
-<section id="coding-attention-mechanisms">
-<h2>ជំពូក ៣ — Coding Attention Mechanisms<a class="headerlink" href="#coding-attention-mechanisms" title="Link to this heading"></a></h2>
+<section id="attention-coding-attention-mechanisms">
+<h2>ជំពូក ៣ — សរសេរកូដយន្តការ Attention (Coding Attention Mechanisms)<a class="headerlink" href="#attention-coding-attention-mechanisms" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៣/02_bonus_efficient-multihead-attention/mha-implementations.ipynb">Comparing Efficient Multi-Head Attention Implementations</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៣/03_understanding-buffers/understanding-buffers.ipynb">Understanding PyTorch Buffers</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៣/02_bonus_efficient-multihead-attention/mha-implementations.ipynb">ប្រៀបធៀបការអនុវត្ត Multi-Head Attention ដែលមានប្រសិទ្ធភាព</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៣/03_understanding-buffers/understanding-buffers.ipynb">ស្វែងយល់ពី PyTorch Buffers</a></p></li>
 </ul>
 </section>
-<section id="implementing-a-gpt-model-from-scratch">
-<h2>ជំពូក ៤ — Implementing a GPT Model From Scratch<a class="headerlink" href="#implementing-a-gpt-model-from-scratch" title="Link to this heading"></a></h2>
+<section id="gpt-implementing-a-gpt-model-from-scratch">
+<h2>ជំពូក ៤ — អនុវត្តម៉ូដែល GPT ពីមូលដ្ឋាន (Implementing a GPT Model From Scratch)<a class="headerlink" href="#gpt-implementing-a-gpt-model-from-scratch" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៤/02_performance-analysis/flops-analysis.ipynb">FLOPs Analysis</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៤/02_performance-analysis/flops-analysis.ipynb">ការវិភាគ FLOPs</a></p></li>
 <li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/03_kv-cache">KV Cache</a></p></li>
-<li><p>Attention Alternatives:</p>
+</ul>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="../_images/diagram-attention-alternatives.svg"><img alt="ដ្យាក្រាមប្រៀបធៀបជម្រើសជំនួស Attention — MHA, GQA, MLA, SWA, Gated DeltaNet, DSA, Cross-Layer KV Sharing" src="../_images/diagram-attention-alternatives.svg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">ទិដ្ឋភាពទូទៅនៃជម្រើសជំនួស Attention ដែលមានក្នុងថត bonus នៃជំពូក ៤។</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>ជម្រើសជំនួស Attention (Attention Alternatives)៖</p>
 <ul>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/04_gqa">Grouped-Query Attention</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/05_mla">Multi-Head Latent Attention</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/06_swa">Sliding Window Attention</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/04_gqa">Grouped-Query Attention (GQA)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/05_mla">Multi-Head Latent Attention (MLA)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/06_swa">Sliding Window Attention (SWA)</a></p></li>
 <li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/08_deltanet">Gated DeltaNet</a></p></li>
 <li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/09_dsa">DeepSeek Sparse Attention (DSA)</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/10_kv-sharing">Cross-Layer KV Sharing</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/10_kv-sharing">ការចែករំលែក KV រវាងស្រទាប់ (Cross-Layer KV Sharing)</a></p></li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/07_moe">Mixture-of-Experts (MoE)</a></p></li>
 </ul>
 </section>
-<section id="pretraining-on-unlabeled-data">
-<h2>ជំពូក ៥ — Pretraining on Unlabeled Data<a class="headerlink" href="#pretraining-on-unlabeled-data" title="Link to this heading"></a></h2>
+<section id="pretraining-pretraining-on-unlabeled-data">
+<h2>ជំពូក ៥ — Pretraining លើទិន្នន័យគ្មានស្លាក (Pretraining on Unlabeled Data)<a class="headerlink" href="#pretraining-pretraining-on-unlabeled-data" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch05/02_alternative_weight_loading">Alternative Weight Loading Methods</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/03_bonus_pretraining_on_gutenberg">Pretraining GPT on the Project Gutenberg Dataset</a></p></li>
-<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch05/04_learning_rate_schedulers">Adding Bells and Whistles to the Training Loop</a></p></li>
-<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch05/19_cpu_mps_differences">Discrepancies between CPU and MPS Devices</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/05_bonus_hparam_tuning">Optimizing Hyperparameters for Pretraining</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/06_user_interface">Building a User Interface to Interact With the Pretrained LLM</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/07_gpt_to_llama">Converting GPT to Llama</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៥/08_memory_efficient_weight_loading/memory-efficient-state-dict.ipynb">Memory-efficient Model Weight Loading</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៥/09_extending-tokenizers/extend-tiktoken.ipynb">Extending the Tiktoken BPE Tokenizer with New Tokens</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/10_llm-training-speed">PyTorch Performance Tips for Faster LLM Training</a></p></li>
-<li><p>LLM Architectures:</p>
+<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch05/02_alternative_weight_loading">វិធីសាស្ត្រផ្ទុក Weight ជំនួស</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/03_bonus_pretraining_on_gutenberg">Pretraining ម៉ូដែល GPT លើ Dataset របស់ Project Gutenberg</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch05/04_learning_rate_schedulers">ការបន្ថែមមុខងារកម្រិតខ្ពស់ទៅក្នុង Training Loop</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch05/19_cpu_mps_differences">ភាពខុសគ្នារវាងឧបករណ៍ CPU និង MPS</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/05_bonus_hparam_tuning">ការកែលម្អ Hyperparameter សម្រាប់ Pretraining</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/06_user_interface">ការសាងសង់ User Interface ដើម្បីប្រើប្រាស់ LLM ដែល Pretrain រួច</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/07_gpt_to_llama">ការបំលែង GPT ទៅ Llama</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៥/08_memory_efficient_weight_loading/memory-efficient-state-dict.ipynb">ការផ្ទុក Model Weight ដោយសន្សំសំចៃអង្គចងចាំ</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៥/09_extending-tokenizers/extend-tiktoken.ipynb">ការពង្រីក Tiktoken BPE Tokenizer ដោយ Token ថ្មី</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/10_llm-training-speed">គន្លឹះ PyTorch Performance ដើម្បីបណ្តុះបណ្តាល LLM លឿនជាង</a></p></li>
+</ul>
+<figure class="align-default" id="id3">
+<a class="reference internal image-reference" href="../_images/diagram-llm-architectures.svg"><img alt="ដ្យាក្រាមស្ថាបត្យកម្ម LLM ដែលសាងសង់ពីមូលដ្ឋាន — ចេញពីម៉ូដែល GPT ទៅ Llama 3.2, Qwen3, Gemma 3, Olmo 3, Tiny Aya, Qwen3.5, Gemma 4" src="../_images/diagram-llm-architectures.svg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">ស្ថាបត្យកម្ម LLM ទាំងអស់ដែលសាងសង់ពីមូលដ្ឋាន ចេញពីម៉ូដែល GPT នៃជំពូក ៤–៥។</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>ស្ថាបត្យកម្ម LLM (LLM Architectures)៖</p>
 <ul>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៥/07_gpt_to_llama/standalone-llama32.ipynb">Llama 3.2 From Scratch</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/11_qwen3">Qwen3 Dense and Mixture-of-Experts (MoE) From Scratch</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/12_gemma3">Gemma 3 From Scratch</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/13_olmo3">Olmo 3 From Scratch</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/15_tiny-aya">Tiny Aya From Scratch</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/16_qwen3.5">Qwen3.5 From Scratch</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/17_gemma4">Gemma 4 E2B and E4B From Scratch</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៥/07_gpt_to_llama/standalone-llama32.ipynb">សាងសង់ Llama 3.2 ពីមូលដ្ឋាន</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/11_qwen3">សាងសង់ Qwen3 Dense និង Mixture-of-Experts (MoE) ពីមូលដ្ឋាន</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/12_gemma3">សាងសង់ Gemma 3 ពីមូលដ្ឋាន</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/13_olmo3">សាងសង់ Olmo 3 ពីមូលដ្ឋាន</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/15_tiny-aya">សាងសង់ Tiny Aya ពីមូលដ្ឋាន</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/16_qwen3.5">សាងសង់ Qwen3.5 ពីមូលដ្ឋាន</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/17_gemma4">សាងសង់ Gemma 4 E2B និង E4B ពីមូលដ្ឋាន</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch05/14_ch05_with_other_llms">Chapter 5 with other LLMs as Drop-In Replacement (e.g., Llama 3, Qwen 3)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch05/14_ch05_with_other_llms">ជំពូក ៥ ជាមួយ LLM ផ្សេងជាការជំនួសដោយផ្ទាល់ (ឧទាហរណ៍ Llama 3, Qwen 3)</a></p></li>
 </ul>
 </section>
-<section id="finetuning-for-classification">
-<h2>ជំពូក ៦ — Finetuning for classification<a class="headerlink" href="#finetuning-for-classification" title="Link to this heading"></a></h2>
+<section id="finetuning-finetuning-for-classification">
+<h2>ជំពូក ៦ — Finetuning សម្រាប់ការចាត់ថ្នាក់ (Finetuning for Classification)<a class="headerlink" href="#finetuning-finetuning-for-classification" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch06/02_bonus_additional-experiments">Additional Experiments Finetuning Different Layers and Using Larger Models</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch06/03_bonus_imdb-classification">Finetuning Different Models on the 50k IMDb Movie Review Dataset</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch06/04_user_interface">Building a User Interface to Interact With the GPT-based Spam Classifier</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch06/02_bonus_additional-experiments">ការពិសោធន៍បន្ថែម៖ Finetuning ស្រទាប់ផ្សេងៗ និងប្រើម៉ូដែលធំជាង</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch06/03_bonus_imdb-classification">Finetuning ម៉ូដែលផ្សេងៗលើ Dataset IMDb Movie Review ៥០ ពាន់</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch06/04_user_interface">ការសាងសង់ User Interface ដើម្បីប្រើប្រាស់ Spam Classifier ដែលផ្អែកលើ GPT</a></p></li>
 </ul>
 </section>
-<section id="finetuning-to-follow-instructions">
-<h2>ជំពូក ៧ — Finetuning to follow instructions<a class="headerlink" href="#finetuning-to-follow-instructions" title="Link to this heading"></a></h2>
+<section id="finetuning-finetuning-to-follow-instructions">
+<h2>ជំពូក ៧ — Finetuning ដើម្បីធ្វើតាមការណែនាំ (Finetuning to Follow Instructions)<a class="headerlink" href="#finetuning-finetuning-to-follow-instructions" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch07/02_dataset-utilities">Dataset Utilities for Finding Near Duplicates and Creating Passive Voice Entries</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch07/03_model-evaluation">Evaluating Instruction Responses Using the OpenAI API and Ollama</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៧/05_dataset-generation/llama3-ollama.ipynb">Generating a Dataset for Instruction Finetuning</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៧/05_dataset-generation/reflection-gpt4.ipynb">Improving a Dataset for Instruction Finetuning</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៧/04_preference-tuning-with-dpo/create-preference-data-ollama.ipynb">Generating a Preference Dataset With Llama 3.1 70B and Ollama</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៧/04_preference-tuning-with-dpo/dpo-from-scratch.ipynb">Direct Preference Optimization (DPO) for LLM Alignment</a></p></li>
-<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch07/06_user_interface">Building a User Interface to Interact With the Instruction-Finetuned GPT Model</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch07/02_dataset-utilities">ឧបករណ៍ជំនួយ Dataset សម្រាប់រក Near Duplicate និងបង្កើតធាតុ Passive Voice</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch07/03_model-evaluation">ការវាយតម្លៃចម្លើយ Instruction ដោយប្រើ OpenAI API និង Ollama</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៧/05_dataset-generation/llama3-ollama.ipynb">ការបង្កើត Dataset សម្រាប់ Instruction Finetuning</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៧/05_dataset-generation/reflection-gpt4.ipynb">ការកែលម្អ Dataset សម្រាប់ Instruction Finetuning</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៧/04_preference-tuning-with-dpo/create-preference-data-ollama.ipynb">ការបង្កើត Preference Dataset ដោយប្រើ Llama 3.1 70B និង Ollama</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/បន្ថែម/ជំពូក៧/04_preference-tuning-with-dpo/dpo-from-scratch.ipynb">Direct Preference Optimization (DPO) សម្រាប់ការតម្រឹម LLM</a></p></li>
+<li><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch07/06_user_interface">ការសាងសង់ User Interface ដើម្បីប្រើប្រាស់ម៉ូដែល GPT ដែល Instruction-Finetune រួច</a></p></li>
 </ul>
 </section>
 <section id="reasoning-from-scratch">
 <h2>ពីឃ្លាំង Reasoning From Scratch<a class="headerlink" href="#reasoning-from-scratch" title="Link to this heading"></a></h2>
 <p>សម្ភារៈបន្ថែមពីឃ្លាំងភ្លោះ
 <a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch">rasbt/reasoning-from-scratch</a>៖</p>
-<p><strong>Qwen3 (From Scratch) Basics</strong></p>
+<p><strong>មូលដ្ឋាន Qwen3 (From Scratch)</strong></p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/chC/01_main-chapter-code/chC_main.ipynb">Qwen3 Source Code Walkthrough</a></p></li>
-<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/tree/main/ch02/03_optimized-LLM">Optimized Qwen3</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/chC/01_main-chapter-code/chC_main.ipynb">ការដើរមើលកូដប្រភព Qwen3 (Source Code Walkthrough)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/tree/main/ch02/03_optimized-LLM">Qwen3 ដែលធ្វើឱ្យប្រសើរ (Optimized)</a></p></li>
 </ul>
-<p><strong>Evaluation</strong></p>
+<p><strong>ការវាយតម្លៃ (Evaluation)</strong></p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/tree/main/ch03">Verifier-Based Evaluation (MATH-500)</a></p></li>
-<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/chF/02_mmlu">Multiple-Choice Evaluation (MMLU)</a></p></li>
-<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/chF/03_leaderboards">LLM Leaderboard Evaluation</a></p></li>
-<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/chF/04_llm-judge">LLM-as-a-Judge Evaluation</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/tree/main/ch03">ការវាយតម្លៃផ្អែកលើ Verifier (MATH-500)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/chF/02_mmlu">ការវាយតម្លៃសំណួរចម្រើស (MMLU)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/chF/03_leaderboards">ការវាយតម្លៃតាម LLM Leaderboard</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/chF/04_llm-judge">ការវាយតម្លៃដោយ LLM-as-a-Judge</a></p></li>
 </ul>
-<p><strong>Inference Scaling</strong></p>
+<p><strong>ការពង្រីក Inference (Inference Scaling)</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/ch04/01_main-chapter-code/ch04_main.ipynb">Self-Consistency</a></p></li>
 <li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/ch05/01_main-chapter-code/ch05_main.ipynb">Self-Refinement</a></p></li>
 </ul>
-<p><strong>Reinforcement Learning (RL)</strong></p>
+<p><strong>Reinforcement Learning (RL) — ការរៀនតាមការពង្រឹង</strong></p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/ch06/01_main-chapter-code/ch06_main.ipynb">RLVR with GRPO From Scratch</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rasbt/reasoning-from-scratch/blob/main/ch06/01_main-chapter-code/ch06_main.ipynb">សាងសង់ RLVR ជាមួយ GRPO ពីមូលដ្ឋាន</a></p></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
