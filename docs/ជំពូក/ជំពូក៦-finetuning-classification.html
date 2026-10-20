@@ -79,11 +79,11 @@
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A4-%E1%9E%98%E1%9F%89%E1%9E%BC%E1%9E%8A%E1%9F%82%E1%9E%9B-GPT.html">ជំពូក ៤៖ ការអនុវត្តម៉ូដែល GPT ពីមូលដ្ឋាន</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A5-pretraining.html">ជំពូក ៥៖ Pretraining លើទិន្នន័យគ្មានស្លាក</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ជំពូក ៦៖ Finetuning សម្រាប់ចំណាត់ថ្នាក់អត្ថបទ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនសង្ខេប (សិក្សាងាយ)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">កូដមេ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនពេញលេញ (សិក្សាងាយ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">កូដមេ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notebooks">Notebooks ខ្មែរសម្រាប់ជំពូកនេះ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">រចនាសម្ព័ន្ធថត</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">លំហាត់</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">រចនាសម្ព័ន្ធថត</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">លំហាត់</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A7-finetuning-instructions.html">ជំពូក ៧៖ Finetuning ដើម្បីធ្វើតាមការណែនាំ</a></li>
@@ -132,27 +132,177 @@
 ឱ្យក្លាយជាម៉ូដែលចំណាត់ថ្នាក់អត្ថបទ (text classification)។ បណ្ណាល័យដែល
 <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> កំណត់សម្រាប់ជំពូកនេះ៖ <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> · <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code> · <code class="docutils literal notranslate"><span class="pre">pandas</span></code>។</p>
 <section id="id1">
-<h2>មេរៀនសង្ខេប (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>ការពន្យល់ខាងក្រោមជាអត្ថបទដើមរបស់សហគមន៍ ដើម្បីជួយឱ្យយល់គំនិតសំខាន់ៗមុនពេលអានកូដ៖</p>
+<h2>មេរៀនពេញលេញ (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>ការពន្យល់ខាងក្រោមជា <strong>អត្ថបទដើមរបស់សហគមន៍ខ្មែរ</strong> គ្របដណ្តប់គំនិតទាំងអស់នៃជំពូក ៦។
+ជំពូកនេះបង្ហាញពីរបៀប <strong>finetune</strong> LLM សម្រាប់កិច្ចការចំណាត់ថ្នាក់អត្ថបទ។</p>
+<section id="id2">
+<h3>១. ការផ្លាស់ប្តូរគំនិត៖ ពីបង្កើតអត្ថបទ ទៅចំណាត់ថ្នាក់<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>ម៉ូដែលពីជំពូក ៥ បញ្ចេញ logits ទំហំ <code class="docutils literal notranslate"><span class="pre">vocab_size</span></code> ដើម្បីព្យាករណ៍ token បន្ទាប់។
+សម្រាប់ចំណាត់ថ្នាក់ យើងត្រូវការ output តូចជាងនេះច្រើន — ឧទាហរណ៍ <strong>២ ថ្នាក់</strong> (spam / not spam)។</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>មុន (LM head):      hidden (emb_dim)  -&gt;  vocab_size (50257)
+ក្រោយ (classification head):  hidden (emb_dim)  -&gt;  num_classes (2)
+</pre></div>
+</div>
+<p>ដូច្នេះការ finetune សម្រាប់ចំណាត់ថ្នាក់ = <strong>ជំនួសស្រទាប់ចុងក្រោយ</strong> រួចបណ្តុះបណ្តាលឡើងវិញ។</p>
+</section>
+<section id="finetune">
+<h3>២. ហេតុអ្វី finetune ជាជាងបណ្តុះបណ្តាលពីសូន្យ?<a class="headerlink" href="#finetune" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>វិធីសាស្ត្រ</p></th>
+<th class="head"><p>លក្ខណៈ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>បណ្តុះបណ្តាលពីសូន្យ</p></td>
+<td><p>ត្រូវការទិន្នន័យច្រើនមហាសាល + GPU ច្រើន + ពេលវេលាយូរ</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Finetune LLM</strong></p></td>
+<td><p>ប្រើចំណេះដឹងភាសាដែលរៀនរួចហើយ ត្រូវការទិន្នន័យមានស្លាកតិចតួច និងពេលវេលាខ្លី</p></td>
+</tr>
+<tr class="row-even"><td><p>ម៉ូដែលបុរាណ (Naive Bayes, logistic regression)</p></td>
+<td><p>លឿន និងត្រូវការធនធានតិច ប៉ុន្តែមិនយល់បរិបទស្មុគស្មាញ</p></td>
+</tr>
+</tbody>
+</table>
+<p>ថត <code class="docutils literal notranslate"><span class="pre">03_bonus_imdb-classification</span></code> ប្រៀបធៀប LLM ជាមួយម៉ូដែលផ្សេងៗលើ dataset IMDb
+៥០ ពាន់ movie review ដើម្បីបង្ហាញពី trade-off នេះជាលេខពិត។</p>
+</section>
+<section id="dataset">
+<h3>៣. Dataset និងការបំបែកទិន្នន័យ<a class="headerlink" href="#dataset" title="Link to this heading"></a></h3>
+<p>ជំពូកនេះប្រើ dataset សារអ៊ីមែល spam។ វិន័យសំខាន់បំផុតក្នុង machine learning៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ទិន្នន័យសរុប
+   |
+   +-- Training set   (~៧០%)  ម៉ូដែលរៀនពីនេះ
+   +-- Validation set (~១៥%)  សម្រាប់កំណត់ hyperparameter និងត្រួតពិនិត្យ overfitting
+   +-- Test set       (~១៥%)  វាយតម្លៃចុងក្រោយ — ប្រើតែម្តងគត់!
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>កុំវាយតម្លៃលើ training set</strong> ហើយរាយការណ៍ថាជាលទ្ធផលពិត។ ម៉ូដែលអាច
+&quot;ចងចាំ&quot; ទិន្នន័យបាន។ ហើយ <strong>កុំប្រើ test set ដើម្បីជ្រើសរើស hyperparameter</strong> —
+បើធ្វើដូច្នោះ test set ក្លាយជា validation set ដោយប្រយោល ហើយលទ្ធផលរបស់អ្នក
+នឹងលម្អិតលើសការពិត។</p>
+</div>
+</section>
+<section id="token">
+<h3>៤. ការជ្រើសរើស token ដើម្បីចំណាត់ថ្នាក់<a class="headerlink" href="#token" title="Link to this heading"></a></h3>
+<p>LLM ដំណើរការលើ sequence ទាំងមូល ប៉ុន្តែចំណាត់ថ្នាក់ត្រូវការ <strong>លទ្ធផលតែមួយ</strong> សម្រាប់អត្ថបទទាំងមូល។
+តើយើងប្រើ hidden state នៃ token ណា?</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ជម្រើស</p></th>
+<th class="head"><p>លក្ខណៈ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Token ចុងក្រោយ</strong></p></td>
+<td><p>ជម្រើសស្តង់ដារសម្រាប់ decoder-only។ ដោយសារ causal attention token ចុងក្រោយបានមើលឃើញព័ត៌មាន <strong>ទាំងអស់</strong> នៃអត្ថបទ ដូច្នេះវាជាសេចក្តីសង្ខេបដ៏ល្អបំផុត</p></td>
+</tr>
+<tr class="row-odd"><td><p>Token ដំបូង</p></td>
+<td><p>មិនសមហេតុផលសម្រាប់ decoder-only ព្រោះវាមើលឃើញតែខ្លួនឯង</p></td>
+</tr>
+<tr class="row-even"><td><p>មធ្យមភាគនៃ token ទាំងអស់</p></td>
+<td><p>អាចធ្វើបាន ប៉ុន្តែត្រូវការការកែប្រែស្ថាបត្យកម្មបន្ថែម</p></td>
+</tr>
+</tbody>
+</table>
+<p>ថត <code class="docutils literal notranslate"><span class="pre">02_bonus_additional-experiments</span></code> ពិសោធន៍លើជម្រើសទាំងនេះដោយផ្ទាល់
+(រួមទាំងការបង្រីកប្រវែង input) ដើម្បីបង្ហាញពីផលប៉ះពាល់ជាក់ស្តែង។</p>
+</section>
+<section id="freezing">
+<h3>៥. Freezing — ការបណ្តុះបណ្តាលតែផ្នែកខ្លះ<a class="headerlink" href="#freezing" title="Link to this heading"></a></h3>
+<p>យើងមិនចាំបាច់ធ្វើបច្ចុប្បន្នភាព parameter ទាំងអស់ទេ។ យុទ្ធសាស្ត្រ៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>for param in model.parameters():
+    param.requires_grad = False          # បិទទាំងអស់
+
+for param in model.out_head.parameters():
+    param.requires_grad = True           # បើកតែស្រទាប់ចុងក្រោយ
+</pre></div>
+</div>
+<p>អត្ថប្រយោជន៍នៃការ freeze៖</p>
 <ul class="simple">
-<li><p><strong>Transfer learning</strong> — យកម៉ូដែលដែលរៀនរួចមកកែសម្រួលបន្តលើកិច្ចការថ្មី ដោយប្រើទិន្នន័យ និងពេលតិចជាងការរៀនពីសូន្យ។</p></li>
-<li><p><strong>Freeze / unfreeze</strong> — ចាក់សោ weights ភាគច្រើន ហើយរៀនតែស្រទាប់ខ្លះ (ឬក្បាលចំណាត់ថ្នាក់) ដើម្បីកាត់បន្ថយ overfitting និងការគណនា។</p></li>
-<li><p><strong>Classification head</strong> — ជំនួសស្រទាប់លទ្ធផល &quot;ព្យាករណ៍ token បន្ទាប់&quot; ដោយស្រទាប់ដែលបង្ហាញពិន្ទុចំណាត់ថ្នាក់ (ឧ. spam/ham)។</p></li>
-<li><p><strong>Balanced dataset</strong> — ធ្វើឱ្យចំនួនគំរូក្នុងថ្នាក់នីមួយៗប្ហាក់ប្ហែលគ្នា ដើម្បីកុំឱ្យម៉ូដែលលំអៀងទៅថ្នាក់ធំ។</p></li>
-<li><p><strong>Accuracy</strong> — សមាមាតនៃការព្យាករណ៍ត្រូវ។ ត្រូវតាមដានទាំង train និង validation។</p></li>
+<li><p><strong>លឿនជាង</strong> និង <strong>សន្សំអង្គចងចាំ</strong> យ៉ាងច្រើន។</p></li>
+<li><p><strong>កាត់បន្ថយ overfitting</strong> ព្រោះ parameter ដែលរៀនមានចំនួនតិច។</p></li>
+<li><p><strong>រក្សាចំណេះដឹងភាសា</strong> ដែលរៀនពី pretraining។</p></li>
 </ul>
-<p>ដំណើរការកូដក្នុងជំពូកនេះ៖</p>
+<p>ជម្រើសដែលអាចធ្វើបាន៖ freeze ទាំងអស់លើកលែង head · freeze ទាំងអស់លើកលែង Transformer block
+ចុងក្រោយ · ឬមិន freeze អ្វីសោះ (full finetuning)។</p>
+</section>
+<section id="loss">
+<h3>៦. Loss សម្រាប់ចំណាត់ថ្នាក់<a class="headerlink" href="#loss" title="Link to this heading"></a></h3>
+<p>នៅតែប្រើ cross-entropy ប៉ុន្តែលើ <strong>ថ្នាក់</strong> ជំនួសឱ្យ vocabulary៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>logits:  (batch_size, num_classes)
+labels:  (batch_size,)   ជាលេខគត់នៃថ្នាក់  ដូចជា 0 ឬ 1
+
+loss = F.cross_entropy(logits, labels)
+</pre></div>
+</div>
+<p>ចំណាំ៖ <code class="docutils literal notranslate"><span class="pre">F.cross_entropy</span></code> ក្នុង PyTorch រួមបញ្ចូល softmax រួចហើយ — កុំហៅ softmax
+ដោយដៃមុនពេលបញ្ជូនចូល ព្រោះវានឹងខុស។</p>
+</section>
+<section id="id3">
+<h3>៧. រង្វាស់វាយតម្លៃ<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>រង្វាស់</p></th>
+<th class="head"><p>រូបមន្ត / ការបកស្រាយ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Accuracy</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(ទាយត្រូវ)</span> <span class="pre">/</span> <span class="pre">(សរុប)</span></code> — ងាយយល់ ប៉ុន្តែ <strong>មិនគួរប្រើ</strong> បើថ្នាក់មិនស្មើគ្នា</p></td>
+</tr>
+<tr class="row-odd"><td><p>Precision</p></td>
+<td><p>ក្នុងចំណោមអ្វីដែលយើងថា spam តើប៉ុន្មានជា spam ពិត?</p></td>
+</tr>
+<tr class="row-even"><td><p>Recall</p></td>
+<td><p>ក្នុងចំណោម spam ពិតទាំងអស់ តើយើងរកឃើញប៉ុន្មាន?</p></td>
+</tr>
+<tr class="row-odd"><td><p>F1 score</p></td>
+<td><p>មធ្យមភាគអាម៉ូនិកនៃ precision និង recall</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>បញ្ហា <strong>class imbalance</strong>៖ បើ ៩៥% នៃអ៊ីមែលមិនមែន spam ម៉ូដែលដែលទាយ
+&quot;មិនមែន spam&quot; ជានិច្ច នឹងទទួលបាន accuracy ៩៥% — ប៉ុន្តែវាគ្មានប្រយោជន៍សោះ។
+ក្នុងករណីបែបនេះ សូមប្រើ precision/recall/F1។</p>
+</div>
+</section>
+<section id="user-interface">
+<h3>៨. User interface<a class="headerlink" href="#user-interface" title="Link to this heading"></a></h3>
+<p>ថត <code class="docutils literal notranslate"><span class="pre">04_user_interface</span></code> អនុវត្តចំណុចប្រទាក់អន្តរកម្ម ដើម្បីឱ្យអ្នកអាចបញ្ចូលអត្ថបទ
+ហើយទទួលបានការវិនិច្ឆ័យភ្លាមៗ។ នេះជាជំហានចុងក្រោយដែលបំលែងម៉ូដែល
+ទៅជាផលិតផលដែលអ្នកដទៃអាចប្រើបាន។</p>
+</section>
+<section id="id4">
+<h3>៩. សំណួរពិនិត្យការយល់ដឹង<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
-<li><p>ទាញយក និងថ្លឹងថ្លែង dataset សារ spam/ham។</p></li>
-<li><p>សាងសង់ SpamDataset និង loaders។</p></li>
-<li><p>ផ្ទុក GPT-2 pretrained។</p></li>
-<li><p>ចាក់សោ weights ជំនួសក្បាលចំណាត់ថ្នាក់ និងដោះសោប្លុកចុងក្រោយ។</p></li>
-<li><p>សរសេរអនុគមន៍ accuracy/loss/train ហើយបណ្តុះបណ្តាល។</p></li>
-<li><p>សាកល្បង classify_review និងរក្សាទុកម៉ូដែល។</p></li>
+<li><p>ហេតុអ្វី token ចុងក្រោយជាជម្រើសល្អសម្រាប់ចំណាត់ថ្នាក់ក្នុង decoder-only model?</p></li>
+<li><p>តើអ្វីកើតឡើងបើអ្នកប្រើ test set ដើម្បីជ្រើសរើស learning rate?</p></li>
+<li><p>ហេតុអ្វី freezing ជួយកាត់បន្ថយ overfitting?</p></li>
+<li><p>បើ dataset មានសារ spam តែ ៥% តើ accuracy ជារង្វាស់ល្អទេ? ហេតុអ្វី?</p></li>
+<li><p>តើអ្វីខុសបើអ្នកហៅ softmax មុន <code class="docutils literal notranslate"><span class="pre">F.cross_entropy</span></code>?</p></li>
 </ol>
 </section>
-<section id="id2">
-<h2>កូដមេ<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+</section>
+<section id="id5">
+<h2>កូដមេ<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
 <p>កូដមេស្ថិតក្នុងថត
 <a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch06/01_main-chapter-code">ch06/01_main-chapter-code</a>៖</p>
 <table class="docutils align-default">
@@ -187,8 +337,8 @@
 </ul>
 <p>សូមមើលបញ្ជីពេញលេញ និងរបៀបដំណើរការក្នុងទំព័រ <a class="reference internal" href="../%E1%9E%99%E1%9F%84%E1%9E%84/%E1%9E%8E%E1%9E%BC%E1%9E%8F%E1%9E%94%E1%9F%8A%E1%9E%BB%E1%9E%80-%E1%9E%81%E1%9F%92%E1%9E%98%E1%9F%82%E1%9E%9A.html"><span class="doc">Notebooks ភាសាខ្មែរ (Companion Notebooks)</span></a>។</p>
 </section>
-<section id="id3">
-<h2>រចនាសម្ព័ន្ធថត<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="id6">
+<h2>រចនាសម្ព័ន្ធថត<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 40.0%" />
@@ -215,8 +365,8 @@
 </tbody>
 </table>
 </section>
-<section id="id4">
-<h2>លំហាត់<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<section id="id7">
+<h2>លំហាត់<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
 <p>ចម្លើយលំហាត់មានក្នុង <code class="docutils literal notranslate"><span class="pre">exercise-solutions.ipynb</span></code> ខាងលើ និងក្នុងសង្ខេបនៃភាគបន្ថែម C។</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>

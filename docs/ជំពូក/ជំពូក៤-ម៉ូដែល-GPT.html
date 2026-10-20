@@ -77,11 +77,11 @@
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A2-%E1%9E%91%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%93%E1%9E%93%E1%9F%90%E1%9E%99%E1%9E%A2%E1%9E%8F%E1%9F%92%E1%9E%90%E1%9E%94%E1%9E%91.html">ជំពូក ២៖ ការធ្វើការជាមួយទិន្នន័យអត្ថបទ (Working with Text Data)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A3-%E1%9E%9F%E1%9E%9A%E1%9E%9F%E1%9F%81%E1%9E%9A%E1%9E%80%E1%9E%BC%E1%9E%8A-attention.html">ជំពូក ៣៖ ការសរសេរកូដ Attention Mechanisms</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ជំពូក ៤៖ ការអនុវត្តម៉ូដែល GPT ពីមូលដ្ឋាន</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនសង្ខេប (សិក្សាងាយ)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">កូដមេ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនពេញលេញ (សិក្សាងាយ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">កូដមេ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notebooks">Notebooks ខ្មែរសម្រាប់ជំពូកនេះ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#attention">សម្ភារៈបន្ថែម និងជម្រើស Attention</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">លំហាត់</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">សម្ភារៈបន្ថែម និងជម្រើស Attention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">លំហាត់</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A5-pretraining.html">ជំពូក ៥៖ Pretraining លើទិន្នន័យគ្មានស្លាក</a></li>
@@ -132,28 +132,233 @@
 ដែលអនុវត្តពីមូលដ្ឋានដោយប្រើ PyTorch។ ក្រៅពីកូដមេ ជំពូកនេះមានសម្ភារៈបន្ថែម
 ច្រើនជាងគេអំពីជម្រើសស្ថាបត្យកម្ម Attention និងការវិភាគប្រសិទ្ធភាព។</p>
 <section id="id1">
-<h2>មេរៀនសង្ខេប (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>ការពន្យល់ខាងក្រោមជាអត្ថបទដើមរបស់សហគមន៍ ដើម្បីជួយឱ្យយល់គំនិតសំខាន់ៗមុនពេលអានកូដ៖</p>
+<h2>មេរៀនពេញលេញ (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>ការពន្យល់ខាងក្រោមជា <strong>អត្ថបទដើមរបស់សហគមន៍ខ្មែរ</strong> គ្របដណ្តប់គំនិតទាំងអស់នៃជំពូក ៤។
+ជំពូកនេះយក multi-head attention ពីជំពូក ៣ មកផ្គុំជាម៉ូដែល GPT ពេញលេញ។</p>
+<section id="id2">
+<h3>១. ផែនទីស្ថាបត្យកម្មទាំងមូល<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>មុនពេលចូលដល់លម្អិត សូមមើលរូបភាពធំនៃការផ្គុំ៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Token IDs
+   |
+   v
+[ Token Embedding ] + [ Positional Embedding ]
+   |
+   v
+[ Dropout ]
+   |
+   v
++--------------------------------------+
+|  TransformerBlock  x N layers        |
+|  +--------------------------------+  |
+|  | LayerNorm                      |  |
+|  | Multi-Head Causal Attention    |  |
+|  | Dropout                        |  |
+|  | + shortcut (residual) --------+|  |
+|  | LayerNorm                      |  |
+|  | FeedForward (Linear-GELU-Linear)|  |
+|  | Dropout                        |  |
+|  | + shortcut (residual) --------+|  |
++--------------------------------------+
+   |
+   v
+[ Final LayerNorm ]
+   |
+   v
+[ Linear head -&gt; vocab_size ]  (logits)
+</pre></div>
+</div>
+</section>
+<section id="layernorm">
+<h3>២. LayerNorm — ស្ថិរភាពនៃការបណ្តុះបណ្តាល<a class="headerlink" href="#layernorm" title="Link to this heading"></a></h3>
+<p><strong>បញ្ហា៖</strong> នៅពេលទិន្នន័យឆ្លងកាត់ស្រទាប់ច្រើន ការចែកចាយ (distribution) នៃតម្លៃអាចរសាត់
+(mean ឃ្លាតពី ០ variance ប្រែប្រួល) ធ្វើឱ្យការបណ្តុះបណ្តាលមិនមានស្ថិរភាព។</p>
+<p><strong>ដំណោះស្រាយ៖</strong> LayerNorm ធ្វើឱ្យវ៉ិចទ័រនីមួយៗមាន mean ≈ ០ និង variance ≈ ១
+រួចគុណ/បូកជាមួយ parameter ដែលរៀនបាន (<code class="docutils literal notranslate"><span class="pre">gamma</span></code> scale និង <code class="docutils literal notranslate"><span class="pre">beta</span></code> shift)។</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>y = gamma * (x - mean(x)) / sqrt(var(x) + eps) + beta
+</pre></div>
+</div>
+<p>ចំណាំ៖ LayerNorm ធ្វើ normalization <strong>តាមលក្ខណៈនៃ sample នីមួយៗ</strong> (across features)
+ខុសពី BatchNorm ដែលធ្វើតាម batch។ នេះសំខាន់ណាស់សម្រាប់ NLP ព្រោះប្រវែង sequence
+អាចខុសគ្នា និង batch អាចតូច។</p>
+</section>
+<section id="gelu-activation-function">
+<h3>៣. GELU — activation function<a class="headerlink" href="#gelu-activation-function" title="Link to this heading"></a></h3>
+<p>GPT ប្រើ <strong>GELU</strong> (Gaussian Error Linear Unit) ជំនួស ReLU៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GELU(x) = x * Phi(x)      ដែល Phi = cumulative distribution នៃ Gaussian ធម្មតា
+</pre></div>
+</div>
+<p>ភាពខុសគ្នាសំខាន់ពី ReLU៖ GELU <strong>មិនកាត់តម្លៃអវិជ្ជមានទាំងស្រុងទេ</strong> — វាអនុញ្ញាតឱ្យ
+តម្លៃអវិជ្ជមានតូចៗឆ្លងកាត់បាន ដែលធ្វើឱ្យ gradient រលូនជាង និងជួយការបណ្តុះបណ្តាល។</p>
+</section>
+<section id="feedforward-network">
+<h3>៤. FeedForward network<a class="headerlink" href="#feedforward-network" title="Link to this heading"></a></h3>
+<p>បន្ទាប់ពី attention ម៉ូដែលត្រូវការស្រទាប់ដែល <strong>ដំណើរការព័ត៌មានលើ token នីមួយៗដាច់ដោយឡែក</strong>។
+នោះជាតួនាទីរបស់ FeedForward៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x -&gt; Linear(emb_dim -&gt; 4 * emb_dim) -&gt; GELU -&gt; Linear(4 * emb_dim -&gt; emb_dim) -&gt; Dropout
+</pre></div>
+</div>
+<p>ចំណុចគួរចាំ៖ កត្តាពង្រីក <strong>4x</strong> គឺជាទម្លាប់ស្តង់ដារ។ ស្រទាប់កណ្តាលធំជាង អនុញ្ញាតឱ្យ
+ម៉ូដែលរៀនអនុគមន៍មិនលីនេអ៊ែរស្មុគស្មាញ។ FeedForward មាន parameter ច្រើនជាង attention
+ក្នុង Transformer block មួយ។</p>
+</section>
+<section id="shortcut-connections-residual-connections">
+<h3>៥. Shortcut connections (residual connections)<a class="headerlink" href="#shortcut-connections-residual-connections" title="Link to this heading"></a></h3>
+<p><strong>បញ្ហា៖</strong> បណ្តាញជ្រៅខ្លាំងធ្វើឱ្យ gradient រលាយបាត់ (vanishing gradient) ពេល backpropagation។</p>
+<p><strong>ដំណោះស្រាយ៖</strong> បូក input ដើមចូលទៅក្នុង output នៃស្រទាប់រង៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>output = x + Sublayer(Norm(x))
+</pre></div>
+</div>
+<p>អត្ថប្រយោជន៍៖</p>
 <ul class="simple">
-<li><p><strong>Transformer block</strong> — ឯកតាដែលត្រួតគ្នា៖ LayerNorm → Attention → LayerNorm → Feed-Forward ព្រំទាំង residual connections។</p></li>
-<li><p><strong>LayerNorm</strong> — ធ្វើឱ្យមធ្យម និងវ៉ារ្យង់នៃវ៉ិចទ័រនីមួយៗមានស្ថិរភាព ជួយឱ្យការបណ្តុះបណ្តាលងាយស្រួល។</p></li>
-<li><p><strong>GELU និង FFN</strong> — បណ្តាញពីរស្រទាប់ដែលមាន activation រលូន បន្ថែមភាពមិនលីនេអ៊ែរទៅក្នុងម៉ូដែល។</p></li>
-<li><p><strong>Residual connection</strong> — ផ្លូវកាត់ដែលឱ្យ gradient ហូរបានល្អ និងអនុញ្ញាតឱ្យដាក់ស្រទាប់ច្រើន។</p></li>
-<li><p><strong>Config និងចំនួន parameters</strong> — តម្លៃដូចជា vocab size, emb_dim, n_layers, n_heads, context length កំណត់ទំហំ និងសមត្ថភាពម៉ូដែល។</p></li>
-<li><p><strong>វដ្តបង្កើតអត្ថបទ</strong> — យក logits នៃទីតាំងចុងក្រោយ → ជ្រើស token → បន្ថែមចូល context → ធ្វើម្តងទៀត។</p></li>
+<li><p>gradient អាចហូរត្រឡប់តាម &quot;ផ្លូវកាត់&quot; ដោយផ្ទាល់ ដូច្នេះម៉ូដែលជ្រៅនៅតែរៀនបាន។</p></li>
+<li><p>ស្រទាប់នីមួយៗគ្រាន់តែរៀន <strong>ផលសង (delta)</strong> លើ input មិនមែនរៀនតំណាងទាំងស្រុងទេ។</p></li>
 </ul>
-<p>ដំណើរការកូដក្នុងជំពូកនេះ៖</p>
+</section>
+<section id="transformerblock">
+<h3>៦. TransformerBlock — ឯកតាដែលផ្គុំឡើងវិញបាន<a class="headerlink" href="#transformerblock" title="Link to this heading"></a></h3>
+<p>TransformerBlock គឺជាឯកតាដែលយកអ្វីៗខាងលើមកផ្គុំគ្នា ហើយត្រូវបាន <strong>ដាក់ជួរគ្នា N ដង</strong>។</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ធាតុផ្សំ</p></th>
+<th class="head"><p>តួនាទី</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Multi-head causal attention</p></td>
+<td><p>លាយព័ត៌មានរវាង token (ការទំនាក់ទំនង)</p></td>
+</tr>
+<tr class="row-odd"><td><p>FeedForward</p></td>
+<td><p>ដំណើរការព័ត៌មានលើ token នីមួយៗដាច់ដោយឡែក</p></td>
+</tr>
+<tr class="row-even"><td><p>LayerNorm x 2</p></td>
+<td><p>ស្ថិរភាពនៃការបណ្តុះបណ្តាល</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shortcut x 2</p></td>
+<td><p>អនុញ្ញាតឱ្យ gradient ហូរបានល្អ</p></td>
+</tr>
+</tbody>
+</table>
+<p>សម្រាប់ <strong>GPT-2 small (124M)</strong> ការកំណត់រចនាសម្ព័ន្ធគឺ៖ <code class="docutils literal notranslate"><span class="pre">n_layers=12</span></code>, <code class="docutils literal notranslate"><span class="pre">emb_dim=768</span></code>,
+<code class="docutils literal notranslate"><span class="pre">n_heads=12</span></code>, <code class="docutils literal notranslate"><span class="pre">context_length=1024</span></code>, <code class="docutils literal notranslate"><span class="pre">vocab_size=50257</span></code>។</p>
+</section>
+<section id="attention">
+<h3>៧. ការគណនាទំហំ attention<a class="headerlink" href="#attention" title="Link to this heading"></a></h3>
+<p>អ្នកត្រូវចេះប៉ាន់ប្រមាណការគណនា និងអង្គចងចាំ៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ចំនួន parameter attention ក្នុង 1 block ~ 4 * emb_dim^2
+  (W_q, W_k, W_v, W_o)
+
+attention matrix មានទំហំ  context_length x context_length
+  -&gt; ការគណនា attention កើនជា O(n^2) ធៀបនឹងប្រវែង sequence
+
+អង្គចងចាំ KV cache ~ 2 * n_layers * n_heads * d_k * seq_len * batch * 4 bytes (float32)
+</pre></div>
+</div>
+<p>នេះជាមូលហេតុដែល <strong>context length វែង</strong> ថ្លៃខ្លាំង និងជាមូលហេតុដែលមានស្ថាបត្យកម្ម
+attention ជំនួស (GQA, MLA, SWA, DeltaNet) ក្នុងថត bonus នៃជំពូកនេះ។</p>
+</section>
+<section id="text-generation">
+<h3>៨. ការបង្កើតអត្ថបទ (text generation)<a class="headerlink" href="#text-generation" title="Link to this heading"></a></h3>
+<p>ម៉ូដែលដែលផ្គុំរួចបញ្ចេញ <strong>logits</strong> (ពិន្ទុឆៅសម្រាប់ token នីមួយៗក្នុង vocabulary)។
+ដើម្បីបង្កើតអត្ថបទ យើងធ្វើរង្វិលជុំ autoregressive៖</p>
 <ol class="arabic simple">
-<li><p>កំណត់ config (GPT_CONFIG_124M) និងត្រៀមបញ្ចូលឧទាហរណ៍។</p></li>
-<li><p>សាងសង់ LayerNorm និង GELU ដោយដៃ បន្ទាប់មកជាច្លាស។</p></li>
-<li><p>សាងសង់ FeedForward និងឧទាហរណ៍ residual connections។</p></li>
-<li><p>ផ្គុំ TransformerBlock និង GPTModel ពេញលេញ។</p></li>
-<li><p>រាប់ parameters និងប៉ាន់ស្មានអង្គចងចាំ។</p></li>
-<li><p>សរសេរ generate_text_simple សម្រាប់ inference។</p></li>
+<li><p>ដាក់ prompt ចូលម៉ូដែល → ទទួល logits សម្រាប់ទីតាំងចុងក្រោយ។</p></li>
+<li><p>បំលែង logits ទៅជាប្រូបាបដោយ softmax។</p></li>
+<li><p>ជ្រើសរើស token មួយ (តាមយុទ្ធសាស្ត្រ decoding)។</p></li>
+<li><p>បន្ថែម token នោះទៅ input រួចធ្វើម្តងទៀតពីជំហាន ១។</p></li>
+</ol>
+<p>យុទ្ធសាស្ត្រជ្រើសរើស token៖</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>យុទ្ធសាស្ត្រ</p></th>
+<th class="head"><p>លក្ខណៈ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Greedy</p></td>
+<td><p>យក token ដែលមានប្រូបាបខ្ពស់បំផុតជានិច្ច — ងាយជាប់គាំងក្នុងរង្វិលដដែលៗ</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Temperature scaling</strong></p></td>
+<td><p>ចែក logits នឹង <code class="docutils literal notranslate"><span class="pre">T</span></code>។ <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> ធ្វើឱ្យការចែកចាយមុតស្រួច (អត្ថបទច្បាស់លាស់ ប៉ុន្តែអាចជាន់ដដែល)។ <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> ធ្វើឱ្យរាបស្មើ (ច្នៃប្រឌិត ប៉ុន្តែអាចមិនសមហេតុផល)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Top-k</strong></p></td>
+<td><p>រក្សាតែ token ដែលមានប្រូបាបខ្ពស់បំផុត k ដំបូង រួចលុបផ្សេងទៀតចោល មុនពេលជ្រើសរើស។ ការពារម៉ូដែលមិនឱ្យជ្រើសពាក្យគ្មានន័យ</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="kv-cache-inference">
+<h3>៩. KV cache — បង្កើនល្បឿន inference<a class="headerlink" href="#kv-cache-inference" title="Link to this heading"></a></h3>
+<p><strong>បញ្ហា៖</strong> នៅជំហានបង្កើត token ទី <code class="docutils literal notranslate"><span class="pre">t</span></code> យើងគណនា K និង V សម្រាប់ token ទាំងអស់ពី ១ ដល់ <code class="docutils literal notranslate"><span class="pre">t</span></code>
+ឡើងវិញ ទាំងដែល K/V នៃ token មុនៗ <strong>មិនប្រែប្រួល</strong> ទេ។</p>
+<p><strong>ដំណោះស្រាយ៖</strong> រក្សាទុក K និង V ដែលគណនារួច ហើយគណនាតែ token ថ្មីមួយប៉ុណ្ណោះ។</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>គ្មាន KV cache:  O(t^2) ការគណនាសរុបសម្រាប់បង្កើត t tokens
+មាន KV cache:  O(t)   ប៉ុន្តែត្រូវចំណាយអង្គចងចាំរក្សាទុក K, V
+</pre></div>
+</div>
+<p>នេះជាអ្វីដែលថត <code class="docutils literal notranslate"><span class="pre">03_kv-cache</span></code> អនុវត្ត។ ការផ្លាស់ប្តូរនេះធ្វើឱ្យ inference លឿនជាងច្រើន
+ប៉ុន្តែត្រូវការអង្គចងចាំបន្ថែម — នេះជា trade-off ដ៏សំខាន់បំផុតមួយក្នុងការបម្រើ LLM។</p>
+</section>
+<section id="id3">
+<h3>១០. សម្ភារៈបន្ថែមក្នុងជំពូកនេះ<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ថត</p></th>
+<th class="head"><p>អ្វីដែលអ្នកនឹងរៀន</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">02_performance-analysis</span></code></p></td>
+<td><p>របៀបវាស់ FLOPs និងពេលវេលាជាក់ស្តែងនៃម៉ូដែល</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">03_kv-cache</span></code></p></td>
+<td><p>អនុវត្ត KV cache ដោយផ្ទាល់</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">04_gqa</span></code></p></td>
+<td><p>Grouped-Query Attention — កាត់បន្ថយអង្គចងចាំ KV cache ដោយចែករំលែក K/V រវាងក្បាល</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">05_mla</span></code></p></td>
+<td><p>Multi-Head Latent Attention — បង្ហាប់ latent vector ជំនួសឱ្យការរក្សា KV ទាំងស្រុង</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">06_swa</span></code></p></td>
+<td><p>Sliding Window Attention — កំណត់ attention ត្រឹមបង្អួចជិតខាង</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">07_moe</span></code></p></td>
+<td><p>Mixture-of-Experts — មាន expert ច្រើន ប៉ុន្តែធ្វើឱ្យសកម្មតែមួយចំនួនក្នុងមួយ token</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">08_deltanet</span></code></p></td>
+<td><p>Gated DeltaNet — វ៉ារ្យ៉ង់ linear attention ដែលជៀសវាង O(n^2)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">10_kv-sharing</span></code></p></td>
+<td><p>ចែករំលែក KV រវាងស្រទាប់ ដើម្បីកាត់បន្ថយអង្គចងចាំ</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<h3>១១. សំណួរពិនិត្យការយល់ដឹង<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>ហេតុអ្វី GPT ប្រើ LayerNorm ជំនួស BatchNorm?</p></li>
+<li><p>តើ shortcut connection ដោះស្រាយបញ្ហាអ្វីពិតប្រាកដ?</p></li>
+<li><p>បើ <code class="docutils literal notranslate"><span class="pre">emb_dim=768</span></code> តើ FeedForward មានទំហំស្រទាប់កណ្តាលប៉ុន្មាន?</p></li>
+<li><p>តើ temperature = 0.5 និង temperature = 1.5 ផ្តល់អត្ថបទខុសគ្នាយ៉ាងដូចម្តេច?</p></li>
+<li><p>ហេតុអ្វី KV cache ជួយបានតែពេល inference មិនមែនពេល training?</p></li>
 </ol>
 </section>
-<section id="id2">
-<h2>កូដមេ<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+</section>
+<section id="id5">
+<h2>កូដមេ<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
 <p>កូដមេស្ថិតក្នុងថត
 <a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch04/01_main-chapter-code">ch04/01_main-chapter-code</a>៖</p>
 <table class="docutils align-default">
@@ -188,8 +393,8 @@
 </ul>
 <p>សូមមើលបញ្ជីពេញលេញ និងរបៀបដំណើរការក្នុងទំព័រ <a class="reference internal" href="../%E1%9E%99%E1%9F%84%E1%9E%84/%E1%9E%8E%E1%9E%BC%E1%9E%8F%E1%9E%94%E1%9F%8A%E1%9E%BB%E1%9E%80-%E1%9E%81%E1%9F%92%E1%9E%98%E1%9F%82%E1%9E%9A.html"><span class="doc">Notebooks ភាសាខ្មែរ (Companion Notebooks)</span></a>។</p>
 </section>
-<section id="attention">
-<h2>សម្ភារៈបន្ថែម និងជម្រើស Attention<a class="headerlink" href="#attention" title="Link to this heading"></a></h2>
+<section id="id6">
+<h2>សម្ភារៈបន្ថែម និងជម្រើស Attention<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 34.0%" />
@@ -237,8 +442,8 @@
 ផ្លូវការនៅឃ្លាំង upstream។</p>
 </div>
 </section>
-<section id="id3">
-<h2>លំហាត់<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="id7">
+<h2>លំហាត់<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
 <p>ចម្លើយលំហាត់មានក្នុង <code class="docutils literal notranslate"><span class="pre">exercise-solutions.ipynb</span></code> ខាងលើ និងក្នុងសង្ខេបនៃភាគបន្ថែម C។</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>

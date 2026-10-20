@@ -75,11 +75,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A1-%E1%9E%9F%E1%9F%92%E1%9E%9C%E1%9F%82%E1%9E%84%E1%9E%99%E1%9E%9B%E1%9F%8B%E1%9E%96%E1%9E%B8-LLM.html">ជំពូក ១៖ ស្វែងយល់ពី Large Language Models</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ជំពូក ២៖ ការធ្វើការជាមួយទិន្នន័យអត្ថបទ (Working with Text Data)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនសង្ខេប (សិក្សាងាយ)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">កូដមេ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនពេញលេញ (សិក្សាងាយ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">កូដមេ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notebooks">Notebooks ខ្មែរសម្រាប់ជំពូកនេះ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">រចនាសម្ព័ន្ធថត</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">លំហាត់</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">រចនាសម្ព័ន្ធថត</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">លំហាត់</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A3-%E1%9E%9F%E1%9E%9A%E1%9E%9F%E1%9F%81%E1%9E%9A%E1%9E%80%E1%9E%BC%E1%9E%8A-attention.html">ជំពូក ៣៖ ការសរសេរកូដ Attention Mechanisms</a></li>
@@ -132,26 +132,168 @@
 token រហូតដល់ការបង្កើត dataloader សម្រាប់ការបណ្តុះបណ្តាល។ បណ្ណាល័យពាក់ព័ន្ធសំខាន់
 ដែល <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> កំណត់សម្រាប់ជំពូកនេះគឺ <code class="docutils literal notranslate"><span class="pre">tiktoken</span></code> (&gt;= 0.5.1)។</p>
 <section id="id1">
-<h2>មេរៀនសង្ខេប (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>ការពន្យល់ខាងក្រោមជាអត្ថបទដើមរបស់សហគមន៍ ដើម្បីជួយឱ្យយល់គំនិតសំខាន់ៗមុនពេលអានកូដ៖</p>
+<h2>មេរៀនពេញលេញ (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>ការពន្យល់ខាងក្រោមជា <strong>អត្ថបទដើមរបស់សហគមន៍ខ្មែរ</strong> គ្របដណ្តប់គំនិតទាំងអស់នៃជំពូក ២
+ជាមុនពេលអ្នកបើកមើលកូដ។</p>
+<section id="id2">
+<h3>១. បញ្ហាមូលដ្ឋាន៖ កុំព្យូទ័រមិនយល់អត្ថបទទេ<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>បណ្តាញសរសៃប្រសាទធ្វើតែគណនាលេខ។ ដូច្នេះមុនពេលបណ្តុះបណ្តាល LLM អ្នកត្រូវបំលែងអត្ថបទ
+ទាំងមូលទៅជា <strong>លេខ</strong>។ បំពង់ (pipeline) នេះមាន ៤ ជំហាន៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>អត្ថបទឆៅ  -&gt;  Tokenization  -&gt;  Token IDs  -&gt;  Embedding  -&gt;  វ៉ិចទ័រលេខ
+</pre></div>
+</div>
+</section>
+<section id="tokenization-token">
+<h3>២. Tokenization — ពីអត្ថបទទៅ token<a class="headerlink" href="#tokenization-token" title="Link to this heading"></a></h3>
+<p><strong>Tokenization</strong> គឺការបំបែកអត្ថបទជាឯកតាតូចៗហៅថា token។ មានវិធីសាស្ត្រសំខាន់ៗ៖</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>វិធីសាស្ត្រ</p></th>
+<th class="head"><p>លក្ខណៈ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>បំបែកតាមអក្សរ</p></td>
+<td><p>vocabulary តូចបំផុត ប៉ុន្តែ sequence វែងខ្លាំង ហើយអក្សរម្តងៗគ្មានន័យ</p></td>
+</tr>
+<tr class="row-odd"><td><p>បំបែកតាមពាក្យ</p></td>
+<td><p>មានន័យច្បាស់ ប៉ុន្តែ vocabulary ធំខ្លាំង និងបរាជ័យលើពាក្យដែលមិនធ្លាប់ឃើញ</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>BPE (subword)</strong></p></td>
+<td><p>ដំណោះស្រាយកណ្តាល — ប្រើកំណាត់ពាក្យដែលកើតឡើងញឹកញាប់ ដូច្នេះ vocabulary មានទំហំសមរម្យ ហើយគ្រប់ពាក្យអាចបំបែកបាន</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tokenizer">
+<h3>៣. ការអភិវឌ្ឍ tokenizer ជាបណ្តើរៗ<a class="headerlink" href="#tokenizer" title="Link to this heading"></a></h3>
+<p>ជំពូកនេះសាងសង់ tokenizer បីកំណែ ដើម្បីបង្ហាញពីហេតុផលនៅពីក្រោយការរចនា៖</p>
+<p><strong>SimpleTokenizerV1</strong> — បំបែកតាមពាក្យដោយកន្សោម regex ធម្មតា។</p>
 <ul class="simple">
-<li><p><strong>Token</strong> — ឯកតាតូចបំផុតនៃអត្ថបទ (ពាក្យ កំណាត់ពាក្យ ឬអក្សរ) ដែលម៉ូដែលអាចដំណើរការបាន។</p></li>
-<li><p><strong>Vocabulary</strong> — តារាងផ្គូផ្គាប់ token ↔ លេខគត់ (token ID)។ ទំហំរបស់វាកំណត់ទំហំស្រទាប់ embedding។</p></li>
-<li><p><strong>BPE (Byte Pair Encoding)</strong> — វិធីសាងសង់ vocabulary ដោយផ្គុំគូអក្សរ/កំណាត់ដែលកើតឡើងញឹកញាប់ ធ្វើឱ្យពាក្យដែលមិនធ្លាប់ឃើញក៏បំបែកបានដែរ។</p></li>
-<li><p><strong>Embedding</strong> — ការបំលែង token ID ទៅជាវ៉ិចទ័រលេខ ដើម្បីឱ្យបណ្តាញសរសៃប្រសាទអាចគណនាលើ &quot;អត្ថន័យ&quot;។</p></li>
-<li><p><strong>Sliding window + target shift</strong> — អត្ថបទត្រូវបានកាត់ជាបន្សំបញ្ចូលប្រវែងថេរ ហើយ target គឺបន្សំនោះរំកិលទៅមុខ ១ token (ការព្យាករណ៍ token បន្ទាប់)។</p></li>
+<li><p>បង្កើត vocabulary ពីពាក្យដែលប្រទះឃើញក្នុងអត្ថបទបណ្តុះបណ្តាល។</p></li>
+<li><p>បញ្ហា៖ បើប្រទះពាក្យថ្មីដែលមិនមានក្នុង vocabulary វានឹង <strong>បរាជ័យ</strong>។</p></li>
 </ul>
-<p>ដំណើរការកូដក្នុងជំពូកនេះ៖</p>
+<p><strong>SimpleTokenizerV2</strong> — ដោះស្រាយបញ្ហាខាងលើដោយបន្ថែម <strong>special tokens</strong>៖</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Special token</p></th>
+<th class="head"><p>តួនាទី</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;|endoftext|&gt;</span></code></p></td>
+<td><p>សម្គាល់ទីបញ្ចប់អត្ថបទមួយ និងការបំបែកឯកសារពីរចេញពីគ្នា</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;|unk|&gt;</span></code></p></td>
+<td><p>ជំនួសពាក្យដែលមិនស្គាល់ (unknown)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>tiktoken (GPT-2 BPE)</strong> — tokenizer ផលិតការពិតប្រាកដ អនុវត្តជាភាសា C ដើម្បីល្បឿន។
+ជំពូកនេះតម្រូវ <code class="docutils literal notranslate"><span class="pre">tiktoken</span> <span class="pre">&gt;=</span> <span class="pre">0.5.1</span></code> តាម <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>។</p>
+</section>
+<section id="bpe">
+<h3>៤. BPE ដំណើរការយ៉ាងដូចម្តេច?<a class="headerlink" href="#bpe" title="Link to this heading"></a></h3>
+<p><strong>Byte Pair Encoding</strong> សាងសង់ vocabulary ដោយចាប់ផ្តើមពីអក្សរតែមួយៗ រួចផ្គុំគូដែល
+<strong>កើតឡើងញឹកញាប់បំផុត</strong> ម្តងហើយម្តងទៀត រហូតដល់ទំហំ vocabulary គោលដៅ។</p>
+<p>ក្បួនដំណើរការ៖</p>
 <ol class="arabic simple">
-<li><p>ផ្ទុកអត្ថបទឧទាហរណ៍ និងបំបែកវាជា tokens ដោយកន្សោមធម្មតា។</p></li>
-<li><p>សាងសង់ vocabulary និង tokenizer V1 បន្ទាប់មក V2 (មាន special tokens)។</p></li>
-<li><p>ប្រើ tiktoken (BPE របស់ GPT-2) ជា tokenizer ផលិតការ។</p></li>
-<li><p>បង្កើត DataLoader ដោយ sliding window សម្រាប់ការបណ្តុះបណ្តាល។</p></li>
-<li><p>បំលែង token IDs ទៅជាវ៉ិចទ័រដោយ embedding + positional embedding។</p></li>
+<li><p>ចាប់ផ្តើមដោយ vocabulary នៃអក្សរ/byte នីមួយៗ។</p></li>
+<li><p>រាប់ភាពញឹកញាប់នៃគូជាប់គ្នាទាំងអស់ក្នុង corpus។</p></li>
+<li><p>ផ្គុំគូដែលញឹកញាប់បំផុតទៅជា token ថ្មីមួយ រួចបន្ថែមវាចូល vocabulary។</p></li>
+<li><p>ធ្វើជំហាន ២–៣ ម្តងទៀត រហូតដល់ឈានដល់ទំហំ vocabulary ដែលចង់បាន។</p></li>
+</ol>
+<p>លទ្ធផល៖ ពាក្យធម្មតា (ដូចជា <code class="docutils literal notranslate"><span class="pre">the</span></code>) ក្លាយជា token តែមួយ ចំណែកពាក្យកម្រត្រូវបានបំបែក
+ជាកំណាត់តូចៗ។ GPT-2 ប្រើ vocabulary ទំហំ <strong>50,257</strong> token។</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>ចំណាំសំខាន់សម្រាប់ភាសាខ្មែរ៖</strong> BPE របស់ GPT-2 ត្រូវបានបណ្តុះបណ្តាលលើអត្ថបទអង់គ្លេស
+ជាចម្បើង ដូច្នេះអក្សរខ្មែរនឹងត្រូវបំបែកជា byte ច្រើន។ នេះជាហេតុផលដែលការសាងសង់
+tokenizer សម្រាប់ភាសាខ្មែរដាច់ដោយឡែកមានសារៈសំខាន់។</p>
+</div>
+</section>
+<section id="sliding-window-target-shift">
+<h3>៥. Sliding window និង target shift<a class="headerlink" href="#sliding-window-target-shift" title="Link to this heading"></a></h3>
+<p>ដើម្បីបណ្តុះបណ្តាល យើងត្រូវបំលែងអត្ថបទវែងជា <strong>ឧទាហរណ៍ (samples)</strong> ប្រវែងថេរ។</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>អត្ថបទ៖  [t0 t1 t2 t3 t4 t5 t6 t7 t8 t9 ...]
+
+context_size = 4, step_size = 1
+
+sample 1:  input  = [t0 t1 t2 t3]   target = [t1 t2 t3 t4]
+sample 2:  input  = [t1 t2 t3 t4]   target = [t2 t3 t4 t5]
+sample 3:  input  = [t2 t3 t4 t5]   target = [t3 t4 t5 t6]
+</pre></div>
+</div>
+<p>ចំណុចគន្លឹះ៖ <strong>target គឺ input រំកិលទៅមុខ ១ token</strong>។ នេះហើយជាអត្ថន័យនៃ
+&quot;ការព្យាករណ៍ token បន្ទាប់&quot; — នៅគ្រប់ទីតាំង ម៉ូដែលត្រូវទាយ token ដែលនៅបន្ទាប់។</p>
+<p>ប៉ារ៉ាម៉ែត្រសំខាន់៖</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">context_size</span></code> (ឬ <code class="docutils literal notranslate"><span class="pre">max_length</span></code>) — ចំនួន token ក្នុង input នីមួយៗ។ GPT-2 ដើមប្រើ 1024។</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">step_size</span></code> (ឬ <code class="docutils literal notranslate"><span class="pre">stride</span></code>) — ចំនួន token ដែលបង្អួចរំកិលម្តងៗ។</p></li>
+</ul>
+</section>
+<section id="embedding">
+<h3>៦. Embedding — ពីលេខទៅវ៉ិចទ័រ<a class="headerlink" href="#embedding" title="Link to this heading"></a></h3>
+<p>Token ID គ្រាន់តែជាសន្ទស្សន៍ — លេខ <code class="docutils literal notranslate"><span class="pre">50256</span></code> មិន &quot;ធំជាង&quot; លេខ <code class="docutils literal notranslate"><span class="pre">1</span></code> ក្នុងន័យអត្ថន័យទេ។
+ដូច្នេះយើងត្រូវបំលែងវាទៅជាវ៉ិចទ័រ។ ម៉ូដែល GPT ប្រើ embedding <strong>ពីរប្រភេទ</strong> បូកបញ្ចូលគ្នា៖</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ប្រភេទ</p></th>
+<th class="head"><p>ទំហំតារាង</p></th>
+<th class="head"><p>តួនាទី</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Token embedding</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vocab_size</span> <span class="pre">x</span> <span class="pre">emb_dim</span></code></p></td>
+<td><p>តំណាង <strong>អត្ថន័យ</strong> នៃ token</p></td>
+</tr>
+<tr class="row-odd"><td><p>Positional embedding</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">context_size</span> <span class="pre">x</span> <span class="pre">emb_dim</span></code></p></td>
+<td><p>តំណាង <strong>ទីតាំង</strong> នៃ token ក្នុង sequence</p></td>
+</tr>
+</tbody>
+</table>
+<p>ហេតុអ្វីត្រូវការ positional embedding? ព្រោះ attention ខ្លួនឯងមិន phân biệt លំដាប់ទេ។
+ការបូកបញ្ចូលគ្នា៖ <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">token_emb</span> <span class="pre">+</span> <span class="pre">pos_emb</span></code></p>
+</section>
+<section id="dataloader">
+<h3>៧. DataLoader<a class="headerlink" href="#dataloader" title="Link to this heading"></a></h3>
+<p>ក្នុងការបណ្តុះបណ្តាលពិតប្រាកដ យើងមិនដំណើរការទិន្នន័យទាំងអស់ម្តងទេ។
+PyTorch <code class="docutils literal notranslate"><span class="pre">DataLoader</span></code> ផ្តល់ឧទាហរណ៍ជា <strong>batch</strong> ដោយ៖</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">shuffle</span></code> — ច្របល់លំដាប់ឧទាហរណ៍ជារៀងរាល់ epoch។</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_size</span></code> — ចំនួនឧទាហរណ៍ក្នុងមួយជំហាន។</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">drop_last</span></code> — ទម្លាក់ batch ចុងក្រោយបើវាមិនពេញ ដើម្បីជៀសវាង tensor មានទំហំមិនស្មើគ្នា។</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>៨. សំណួរពិនិត្យការយល់ដឹង<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>ពេលអ្នកដំណើរការ notebook សូមពិនិត្យថាអ្នកអាចឆ្លើយសំណួរទាំងនេះបាន៖</p>
+<ol class="arabic simple">
+<li><p>តើ <code class="docutils literal notranslate"><span class="pre">vocab_size</span></code> និង <code class="docutils literal notranslate"><span class="pre">context_size</span></code> កំណត់ទំហំ parameter នៃស្រទាប់ embedding យ៉ាងដូចម្តេច?</p></li>
+<li><p>តើអ្វីកើតឡើងបើ token មួយមិនមានក្នុង vocabulary?</p></li>
+<li><p>ហេតុអ្វី target ត្រូវរំកិល ១ token ជាជាង ២ ឬ ០?</p></li>
+<li><p>តើ <code class="docutils literal notranslate"><span class="pre">drop_last=True</span></code> ដោះស្រាយបញ្ហាអ្វី?</p></li>
+<li><p>តើអ្នកអាចគណនាចំនួន parameter សរុបនៃ embedding ទាំងពីរបានទេ?</p></li>
 </ol>
 </section>
-<section id="id2">
-<h2>កូដមេ<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+</section>
+<section id="id4">
+<h2>កូដមេ<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <p>កូដមេស្ថិតក្នុងថត
 <a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch02/01_main-chapter-code">ch02/01_main-chapter-code</a>៖</p>
 <table class="docutils align-default">
@@ -187,8 +329,8 @@ token រហូតដល់ការបង្កើត dataloader សម្រ�
 </ul>
 <p>សូមមើលបញ្ជីពេញលេញ និងរបៀបដំណើរការក្នុងទំព័រ <a class="reference internal" href="../%E1%9E%99%E1%9F%84%E1%9E%84/%E1%9E%8E%E1%9E%BC%E1%9E%8F%E1%9E%94%E1%9F%8A%E1%9E%BB%E1%9E%80-%E1%9E%81%E1%9F%92%E1%9E%98%E1%9F%82%E1%9E%9A.html"><span class="doc">Notebooks ភាសាខ្មែរ (Companion Notebooks)</span></a>។</p>
 </section>
-<section id="id5">
-<h2>រចនាសម្ព័ន្ធថត<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<section id="id7">
+<h2>រចនាសម្ព័ន្ធថត<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 40.0%" />
@@ -221,8 +363,8 @@ token រហូតដល់ការបង្កើត dataloader សម្រ�
 </tbody>
 </table>
 </section>
-<section id="id6">
-<h2>លំហាត់<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<section id="id8">
+<h2>លំហាត់<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
 <p>ជំពូកនេះមានលំហាត់ ហើយចម្លើយមានក្នុង <code class="docutils literal notranslate"><span class="pre">exercise-solutions.ipynb</span></code> ខាងលើ
 ព្រមទាំងត្រូវបានសង្ខេបក្នុងភាគបន្ថែម C (មើលទំព័រ <a class="reference internal" href="../%E1%9E%99%E1%9F%84%E1%9E%84/%E1%9E%97%E1%9E%B6%E1%9E%82%E1%9E%94%E1%9E%93%E1%9F%92%E1%9E%90%E1%9F%82%E1%9E%98.html"><span class="doc">ភាគបន្ថែម (Appendices A–E)</span></a>)។</p>
 <div class="admonition tip">

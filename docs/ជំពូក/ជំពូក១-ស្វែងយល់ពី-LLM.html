@@ -74,9 +74,9 @@
 <p class="caption" role="heading"><span class="caption-text">ជំពូកស្នូល</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ជំពូក ១៖ ស្វែងយល់ពី Large Language Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">ខ្លឹមសារក្នុងថត <code class="docutils literal notranslate"><span class="pre">ch01</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">មេរៀនសង្ខេប (សិក្សាងាយ)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">របៀបអានសៀវភៅបានល្អបំផុត</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">ខ្លឹមសារក្នុងថត <code class="docutils literal notranslate"><span class="pre">ch01</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">មេរៀនពេញលេញ (សិក្សាងាយ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">របៀបអានសៀវភៅបានល្អបំផុត</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A2-%E1%9E%91%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%93%E1%9E%93%E1%9F%90%E1%9E%99%E1%9E%A2%E1%9E%8F%E1%9F%92%E1%9E%90%E1%9E%94%E1%9E%91.html">ជំពូក ២៖ ការធ្វើការជាមួយទិន្នន័យអត្ថបទ (Working with Text Data)</a></li>
@@ -123,14 +123,14 @@
 <h1>ជំពូក ១៖ ស្វែងយល់ពី Large Language Models<a class="headerlink" href="#large-language-models" title="Link to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>ប្រភព៖ ថត <a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch01">ch01</a>
-និងតារាងមាតិកាក្នុង <a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/blob/main/README.md">README.md</a> របស់ upstream។</p>
+<p>ប្រភព៖ ថត <a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/%E1%9E%80%E1%9E%BC%E1%9E%8A/ch01">កូដ/ch01</a>
+ក្នុងឃ្លាំងនេះ និងថត <a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch01">ch01</a> របស់ upstream។</p>
 </div>
 <p>ជំពូកនេះជាជំពូកណែនាំអំពីគោលគំនិត — តារាងមាតិការបស់ upstream បញ្ជាក់ថា <strong>&quot;No code&quot;</strong>
 (គ្មានកូដ) សម្រាប់ជំពូកនេះ។ វាដាក់មូលដ្ឋានគ្រឹះសម្រាប់ជំពូកបន្ទាប់ទាំងអស់
 ដែលនឹងសរសេរកូដសាងសង់ LLM ពិតប្រាកដ។</p>
-<section id="id1">
-<h2>ខ្លឹមសារក្នុងថត <code class="docutils literal notranslate"><span class="pre">ch01</span></code><a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="id2">
+<h2>ខ្លឹមសារក្នុងថត <code class="docutils literal notranslate"><span class="pre">ch01</span></code><a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 40.0%" />
@@ -142,34 +142,228 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">README.md</span></code></p></td>
-<td><p>ឯកសារណែនាំរបស់ជំពូក</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/%E1%9E%80%E1%9E%BC%E1%9E%8A/ch01/README.md">README.md</a></p></td>
+<td><p>ឯកសារណែនាំរបស់ជំពូក (កំណែខ្មែរ)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reading-recommendations.md</span></code></p></td>
-<td><p>បញ្ជីអានណែនាំបន្ថែមសម្រាប់ជំពូកនេះ</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/%E1%9E%80%E1%9E%BC%E1%9E%8A/ch01/reading-recommendations.md">reading-recommendations.md</a></p></td>
+<td><p>ណែនាំអំពីរបៀបអានសៀវភៅបច្ចេកទេសឱ្យទទួលបានផលច្រើនបំផុត (កំណែសម្រួលខ្មែរ)</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="id2">
-<h2>មេរៀនសង្ខេប (សិក្សាងាយ)<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<p>ការពន្យល់ខាងក្រោមជាអត្ថបទដើមរបស់សហគមន៍ ដើម្បីជួយឱ្យយល់គំនិតសំខាន់ៗមុនពេលអានកូដ៖</p>
-<ul class="simple">
-<li><p><strong>LLM (Large Language Model)</strong> — ម៉ូដែលសរសៃប្រសាទដែលត្រូវបានបណ្តុះបណ្តាលឱ្យព្យាករណ៍ token បន្ទាប់ពីអត្ថបទដ៏ច្រើន។ ចំណេះដឹងភាសា និងសមត្ថភាពបង្កើតអត្ថបទកើតចេញពីការបណ្តុះបណ្តាលនេះ។</p></li>
-<li><p><strong>Pretraining និង Finetuning</strong> — ដំបូងម៉ូដែលរៀនពីទិន្នន័យគ្មានស្លាក (pretraining) បន្ទាប់មកត្រូវបានកែសម្រួលបន្ថែមសម្រាប់កិច្ចការជាក់លាក់ (finetuning) ដូចជាចំណាត់ថ្នាក់ ឬការឆ្លើយតបតាមការណែនាំ។</p></li>
-<li><p><strong>ត្រកូល GPT (decoder-only)</strong> — ម៉ូដែលដែលបង្កើតអត្ថបទម្តងមួយ token ដោយប្រើ attention លើ tokens ដែលនៅពីមុខវា។</p></li>
-<li><p><strong>ហេតុអ្វីសាងសង់ពីមូលដ្ឋាន?</strong> — ការសរសេរ tokenizer, attention និង training loop ដោយខ្លួនឯង ផ្តល់ការយល់ដឹងជ្រៅជាងការគ្រាន់តែហៅបណ្ណាល័យ។</p></li>
-</ul>
-<p>ដំណើរការកូដក្នុងជំពូកនេះ៖</p>
-<ol class="arabic simple">
-<li><p>ជំពូកនេះគ្មានកូដទេ — វាជាមូលដ្ឋានគរឹះជាគំនិតសម្រាប់ជំពូកទាំងអស់។</p></li>
-<li><p>ថត <code class="docutils literal notranslate"><span class="pre">ch01</span></code> មាន <code class="docutils literal notranslate"><span class="pre">README.md</span></code> (ឯកសារណែនាំ) និង <code class="docutils literal notranslate"><span class="pre">reading-recommendations.md</span></code> (បញ្ជីអានបន្ថែម)។</p></li>
-</ol>
-</section>
 <section id="id3">
-<h2>របៀបអានសៀវភៅបានល្អបំផុត<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<p>អ្នកនិពន្ធមានអត្ថបទណែនាំពិសេសមួយអំពីរបៀបអានសៀវភៅបច្ចេកទេសឱ្យមានប្រសិទ្ធភាព៖
-<a class="reference external" href="https://sebastianraschka.com/blog/2025/reading-books.html">How to best read this book</a>។</p>
+<h2>មេរៀនពេញលេញ (សិក្សាងាយ)<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>ការពន្យល់ខាងក្រោមជា <strong>អត្ថបទដើមរបស់សហគមន៍ខ្មែរ</strong> (មិនមែនជាការចម្លងអត្ថបទសៀវភៅទេ)
+សរសេរឡើងដើម្បីឱ្យអ្នកសិក្សាយល់គោលគំនិតទាំងអស់នៃជំពូក ១ មុនពេលចូលដល់ការសរសេរកូដ។</p>
+<section id="llm">
+<h3>១. LLM គឺជាអ្វី?<a class="headerlink" href="#llm" title="Link to this heading"></a></h3>
+<p><strong>Large Language Model (LLM)</strong> គឺជាបណ្តាញសរសៃប្រសាទសិប្បនិម្មិតដែលត្រូវបានបណ្តុះបណ្តាល
+លើអត្ថបទបរិមាណច្រើនមហាសាល ដើម្បីរៀន <strong>ព្យាករណ៍ token បន្ទាប់</strong>។</p>
+<p>ចំណុចសំខាន់ដែលត្រូវចាំ៖</p>
+<ul class="simple">
+<li><p>ម៉ូដែលមិនត្រូវបានកំណត់ច្បាប់វេយយាករណ៍ ឬវចនានុក្រមដោយដៃទេ។</p></li>
+<li><p>ចំណេះដឹងភាសា ការតភ្ជាប់ន័យ និងសមត្ថភាពបង្កើតអត្ថបទ <strong>កើតចេញពីស្ថិតិ</strong> នៃការបណ្តុះបណ្តាល។</p></li>
+<li><p>ពាក្យ &quot;ធំ&quot; (Large) សំដៅលើចំនួន parameter — ធម្មតាចាប់ពីរយលាន ដល់រាប់ពាន់លាន ឬច្រើនជាងនេះ។</p></li>
+</ul>
+</section>
+<section id="deep-learning-llm">
+<h3>២. ដំណើរវិវត្ត ពី deep learning ទៅ LLM<a class="headerlink" href="#deep-learning-llm" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ដំណាក់កាល</p></th>
+<th class="head"><p>ខ្លឹមសារ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Deep learning</p></td>
+<td><p>បណ្តាញសរសៃប្រសាទច្រើនស្រទាប់ រៀនលក្ខណៈ (features) ដោយស្វ័យប្រវត្តិពីទិន្នន័យឆៅ</p></td>
+</tr>
+<tr class="row-odd"><td><p>Word embedding</p></td>
+<td><p>តំណាងពាក្យជាវ៉ិចទ័រលេខ ដែលធ្វើឱ្យពាក្យមានន័យជិតគ្នាស្ថិតនៅជិតគ្នាក្នុងលំហ</p></td>
+</tr>
+<tr class="row-even"><td><p>Transformer</p></td>
+<td><p>ស្ថាបត្យកម្មដែលប្រើ <strong>attention</strong> ជំនួស RNN អនុញ្ញាតឱ្យគណនាស្រប (parallel) បាន</p></td>
+</tr>
+<tr class="row-odd"><td><p>LLM</p></td>
+<td><p>Transformer ដែលពង្រីកទំហំ ហើយបណ្តុះបណ្តាលលើអត្ថបទច្រើន រហូតដល់មានសមត្ថភាពភាសាទូទៅ</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pretraining-finetuning">
+<h3>៣. Pretraining និង Finetuning<a class="headerlink" href="#pretraining-finetuning" title="Link to this heading"></a></h3>
+<p>ការបង្កើត LLM មានពីរដំណាក់កាលសំខាន់៖</p>
+<p><strong>ដំណាក់កាលទី ១ — Pretraining</strong></p>
+<ul class="simple">
+<li><p>ប្រើទិន្នន័យ <strong>គ្មានស្លាក</strong> (unlabeled) ដូចជាអត្ថបទពីគេហទំព័រ សៀវភៅ និងកូដ។</p></li>
+<li><p>កិច្ចការ៖ ព្យាករណ៍ token បន្ទាប់ (next-token prediction)។</p></li>
+<li><p>លទ្ធផល៖ <strong>base model</strong> ដែលចេះភាសា ប៉ុន្តែមិនទាន់ចេះ &quot;សន្ទនា&quot;។</p></li>
+<li><p>ចំណាយថ្លៃខ្លាំង — ត្រូវការ GPU និងពេលវេលាច្រើន។</p></li>
+</ul>
+<p><strong>ដំណាក់កាលទី ២ — Finetuning</strong></p>
+<ul class="simple">
+<li><p>ប្រើទិន្នន័យ <strong>មានស្លាក</strong> ឬមានទម្រង់ជាក់លាក់ តិចជាង pretraining ច្រើន។</p></li>
+<li><p>ប្រភេទសំខាន់ៗ៖</p>
+<ul>
+<li><p><strong>Classification finetuning</strong> — បន្ថែមស្រទាប់ចំណាត់ថ្នាក់ ដើម្បីវិនិច្ឆ័យអត្ថបទ (ជំពូក ៦)។</p></li>
+<li><p><strong>Instruction finetuning</strong> — បង្រៀនឱ្យឆ្លើយតបតាមការណែនាំក្នុងទម្រង់សន្ទនា (ជំពូក ៧)។</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="gpt-decoder-only">
+<h3>៤. ត្រកូល GPT (decoder-only)<a class="headerlink" href="#gpt-decoder-only" title="Link to this heading"></a></h3>
+<p>Transformer ដើមមានពីរផ្នែក៖ <strong>encoder</strong> និង <strong>decoder</strong>។ ត្រកូល GPT ប្រើតែផ្នែក <strong>decoder</strong>។</p>
+<p>លក្ខណៈសំខាន់៖</p>
+<ul class="simple">
+<li><p>បង្កើតអត្ថបទ <strong>ម្តងមួយ token</strong> (autoregressive) — token ដែលបង្កើតហើយក្លាយជា input សម្រាប់ token បន្ទាប់។</p></li>
+<li><p>ប្រើ <strong>causal attention</strong> — token នីមួយៗអាចមើលឃើញតែ token នៅពីមុខវាប៉ុណ្ណោះ។</p></li>
+<li><p>ឧទាហរណ៍ម៉ូដែលក្នុងត្រកូលនេះ៖ GPT-2, GPT-3, GPT-4, Llama, Qwen, Gemma។</p></li>
+</ul>
+</section>
+<section id="attention">
+<h3>៥. Attention គឺជាអ្វី? (គំនិតដំបូង)<a class="headerlink" href="#attention" title="Link to this heading"></a></h3>
+<p><strong>Attention</strong> គឺជាយន្តការដែលអនុញ្ញាតឱ្យម៉ូដែល &quot;ផ្តោតអារម្មណ៍&quot; លើផ្នែកដែលពាក់ព័ន្ធនៃ input
+នៅពេលដំណើរការ token នីមួយៗ។</p>
+<p>គំនិតសាមញ្ញ៖ ពេលអានឃ្លា <em>&quot;ខ្ញុំទិញកុំព្យូទ័រថ្មី ព្រោះវាលឿនណាស់&quot;</em> យើងដឹងភ្លាមថាពាក្យ <strong>&quot;វា&quot;</strong>
+សំដៅលើ &quot;កុំព្យូទ័រ&quot; មិនមែន &quot;ខ្ញុំ&quot;។ Attention ធ្វើការងារដូចគ្នានេះតាមរយៈ <strong>ទម្ងន់លេខ</strong>
+ដែលគណនាថាតើ token ណាសំខាន់សម្រាប់ token បច្ចុប្បន្ន។ ជំពូក ៣ នឹងសរសេរកូដវាពេញលេញ។</p>
+</section>
+<section id="id4">
+<h3>៦. ហេតុអ្វីត្រូវសាងសង់ពីមូលដ្ឋាន?<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>អ្នកអាចហៅបណ្ណាល័យ <code class="docutils literal notranslate"><span class="pre">transformers</span></code> ឬ API ដោយប្រើតែពីរបីបន្ទាត់កូដ។
+ប៉ុន្តែការសរសេរវាដោយខ្លួនឯងផ្តល់អត្ថប្រយោជន៍ខុសគ្នាទាំងស្រុង៖</p>
+<ul class="simple">
+<li><p><strong>យល់ដឹងជ្រៅ</strong> — អ្នកដឹងថាអ្វីកើតឡើងខាងក្នុង មិនមែនគ្រាន់តែដឹងថាវាដំណើរការទេ។</p></li>
+<li><p><strong>debug បាន</strong> — ពេល loss មិនចុះ អ្នកអាចរកឃើញថាវាជាបញ្ហា tokenizer, learning rate ឬ attention mask។</p></li>
+<li><p><strong>កែប្រែបាន</strong> — អាចបង្កើតស្ថាបត្យកម្មថ្មី ឬសាកល្បងគំនិតដែលបណ្ណាល័យមិនទាន់គាំទ្រ។</p></li>
+<li><p><strong>វាយតម្លៃបាន</strong> — អាចប្រៀបធៀបម៉ូដែលដោយយល់ពីមូលហេតុពិតប្រាកដ។</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>៧. វដ្តអភិវឌ្ឍន៍ LLM ទាំងមូល<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>លំដាប់ជំពូកនៃគម្រោងនេះឆ្លុះបញ្ចាំងពីវដ្តអភិវឌ្ឍន៍ពិតប្រាកដ៖</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 35.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ជំពូក</p></th>
+<th class="head"><p>ដំណាក់កាល</p></th>
+<th class="head"><p>លទ្ធផល</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>១</p></td>
+<td><p>ស្វែងយល់គោលគំនិត</p></td>
+<td><p>មូលដ្ឋានគ្រឹះជាគំនិត (គ្មានកូដ)</p></td>
+</tr>
+<tr class="row-odd"><td><p>២</p></td>
+<td><p>រ្កៀបចំទិន្នន័យ</p></td>
+<td><p>tokenizer + dataloader</p></td>
+</tr>
+<tr class="row-even"><td><p>៣</p></td>
+<td><p>Attention</p></td>
+<td><p>self-attention និង multi-head attention</p></td>
+</tr>
+<tr class="row-odd"><td><p>៤</p></td>
+<td><p>ស្ថាបត្យកម្ម</p></td>
+<td><p>ម៉ូដែល GPT ពេញលេញ</p></td>
+</tr>
+<tr class="row-even"><td><p>៥</p></td>
+<td><p>Pretraining</p></td>
+<td><p>ម៉ូដែលបណ្តុះបណ្តាលរួច + ផ្ទុក GPT-2 weights</p></td>
+</tr>
+<tr class="row-odd"><td><p>៦</p></td>
+<td><p>Finetuning (ចំណាត់ថ្នាក់)</p></td>
+<td><p>ម៉ូដែលវិនិច្ឆ័យអត្ថបទ</p></td>
+</tr>
+<tr class="row-even"><td><p>៧</p></td>
+<td><p>Finetuning (ការណែនាំ)</p></td>
+<td><p>ម៉ូដែលឆ្លើយតបតាមបទបញ្ជា</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id6">
+<h3>៨. វាក្យសព្ទគន្លឹះនៃជំពូកនេះ<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>token</dt><dd><p>ឯកតាតូចបំផុតនៃអត្ថបទដែលម៉ូដែលដំណើរការបាន (ពាក្យ កំណាត់ពាក្យ ឬអក្សរ)។</p>
+</dd>
+<dt>parameter</dt><dd><p>តម្លៃលេខដែលម៉ូដែលរៀនកែប្រែអំឡុងពេលបណ្តុះបណ្តាល។</p>
+</dd>
+<dt>pretraining</dt><dd><p>ការបណ្តុះបណ្តាលលើទិន្នន័យគ្មានស្លាក ដើម្បីរៀនភាសាទូទៅ។</p>
+</dd>
+<dt>finetuning</dt><dd><p>ការបណ្តុះបណ្តាលបន្ថែមលើទិន្នន័យជាក់លាក់ ដើម្បីកែសម្រួលម៉ូដែលសម្រាប់កិច្ចការមួយ។</p>
+</dd>
+<dt>autoregressive</dt><dd><p>ការបង្កើតលទ្ធផលម្តងមួយឯកតា ដោយប្រើលទ្ធផលមុនជា input។</p>
+</dd>
+<dt>causal attention</dt><dd><p>attention ដែលរារាំងមិនឱ្យ token មើលឃើញ token នៅអនាគត។</p>
+</dd>
+<dt>base model</dt><dd><p>ម៉ូដែលដែលឆ្លងកាត់តែ pretraining មិនទាន់ finetune សម្រាប់កិច្ចការជាក់លាក់។</p>
+</dd>
+</dl>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>អត្ថបទ និងរូបភាពរបស់សៀវភៅ <em>Build a Large Language Model (From Scratch)</em> (Manning)
+ជាកម្មសិទ្ធិបញ្ញា ហើយ <strong>មិនត្រូវបានចម្លងមកទីនេះទេ</strong>។ មេរៀនខាងលើជាការពន្យល់ដើម
+របស់សហគមន៍ខ្មែរ ដើម្បីជួយឱ្យអ្នកយល់គោលគំនិតមុនពេលអានប្រភពដើម។</p>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2>របៀបអានសៀវភៅបានល្អបំផុត<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>អ្នកនិពន្ធមានអត្ថបទណែនាំពិសេសមួយអំពីរបៀបអានសៀវភៅបច្ចេកទេសឱ្យមានប្រសិទ្ធភាព។
+ឃ្លាំងនេះមាន <strong>កំណែសម្រួលភាសាខ្មែរពេញលេញ</strong> ដែលគ្របដណ្តប់គ្រប់ជំហាន៖
+<a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/%E1%9E%80%E1%9E%BC%E1%9E%8A/ch01/reading-recommendations.md">reading-recommendations.md</a>
+(អត្ថបទដើមភាសាអង់គ្លេស៖
+<a class="reference external" href="https://sebastianraschka.com/blog/2025/reading-books.html">How to best read this book</a>)។</p>
+<p>ខ្លឹមសារសំខាន់ — ជំហានទាំង ៥ សម្រាប់ជំពូកនីមួយៗ៖</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12.0%" />
+<col style="width: 38.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ជំហាន</p></th>
+<th class="head"><p>សកម្មភាព</p></th>
+<th class="head"><p>គោលដ្ឋាន</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>១</p></td>
+<td><p>អានសុទ្ធ គ្មានកូដ (ប្រហែល ២០ នាទី ឆ្ងាយពីកុំព្យូទ័រ)</p></td>
+<td><p>យល់រូបភាពធំជាមុនសិន</p></td>
+</tr>
+<tr class="row-odd"><td><p>២</p></td>
+<td><p>អានម្តងទៀត វាយកូដឡើងវិញដោយខ្លួនឯង រួចដំណើរការវា</p></td>
+<td><p>បង្ខំឱ្យគិតអំពីកូដពិតប្រាកដ</p></td>
+</tr>
+<tr class="row-even"><td><p>៣</p></td>
+<td><p>ធ្វើលំហាត់ (ព្យាយាមដោយខ្លួនឯងមុន ទើបមើលចម្លើយ)</p></td>
+<td><p>ពង្រឹងការយល់ដឹង</p></td>
+</tr>
+<tr class="row-odd"><td><p>៤</p></td>
+<td><p>ពិនិត្យកំណត់ចំណាំឡើងវិញ ស្វែងរកឯកសារយោងបន្ថែម</p></td>
+<td><p>បំពេញចន្លោះដែលនៅសល់</p></td>
+</tr>
+<tr class="row-even"><td><p>៥</p></td>
+<td><p>យកគំនិតទៅប្រើក្នុងគម្រោងផ្ទាល់ខ្លួន</p></td>
+<td><p>បំលែងចំណេះដឹងទៅជាសមត្ថភាព</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ជំពូក ១ គ្មានកូដទេ ដូច្នេះជំហានទី ២ និងទី ៣ អនុវត្តចាប់ពីជំពូក ២ តទៅ។</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>បន្ទាប់ពីយល់គោលគំនិតហើយ ចាប់ផ្តើមសរសេរកូដជាក់ស្តែងជាមួយ

@@ -18,9 +18,10 @@
 | ផ្នែក | ទំព័រ |
 |---|---|
 | ការចាប់ផ្តើម | ទិដ្ឋភាពទូទៅ · ការដំឡើងបរិស្ថាន · ការទាញយកកូដ |
-| ជំពូកស្នូល | ជំពូក ១–៧ (Understanding LLMs, Text Data, Attention, GPT Model, Pretraining, Classification, Instructions) |
+| ជំពូកស្នូល | ជំពូក ១–៧ (Understanding LLMs, Text Data, Attention, GPT Model, Pretraining, Classification, Instructions) — ទំព័រនីមួយៗមាន **មេរៀនពេញលេញ** ជាខ្មែរ មិនមែនគ្រាន់តែសង្ខេបទេ |
 | ឯកសារយោង | ភាគបន្ថែម A–E · សម្ភារៈបន្ថែម · Notebooks ខ្មែរ · វចនានុក្រម · ឯកសារយោង |
 | Notebooks | ថត `ណូតប៊ុក-ខ្មែរ/` — companion notebooks ១៩ (កូដដូច upstream ១០០% + comments កូដជាខ្មែរ + ការពន្យល់ខ្មែរដើម) |
+| សន្ទស្សន៍កូដ | ថត `កូដ/ch01` – `កូដ/ch07` — ឯកសារ `README.md` ជាខ្មែរសម្រាប់ជំពូកនីមួយៗ (បញ្ជីថតដែលមានក្នុងឃ្លាំង និងតំណទៅ upstream សម្រាប់ថតដែលមិនបានចម្លង) |
 
 ## លក្ខណៈពិសេស
 
@@ -38,6 +39,8 @@ source/           ប្រភពឯកសារ RST (conf.py, index.rst, _templ
   ការចាប់ផ្តើម/   ទំព័រចាប់ផ្តើម
   ជំពូក/         ទំព័រជំពូក ១–៧
   យោង/           ភាគបន្ថែម សម្ភារៈបន្ថែម វចនានុក្រម ឯកសារយោង
+កូដ/              ចម្លងកូដពី upstream (Apache-2.0) + README.md សន្ទស្សន៍ខ្មែរសម្រាប់ជំពូកនីមួយៗ
+ណូតប៊ុក-ខ្មែរ/       companion notebooks ជាភាសាខ្មែរ
 docs/             HTML ដែល build រួច (បម្រើតាម GitHub Pages)
 Makefile          បញ្ជា build
 requirements.txt  dependencies នៃឧបករណ៍ឯកសារ

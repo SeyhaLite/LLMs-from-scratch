@@ -76,11 +76,11 @@
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A1-%E1%9E%9F%E1%9F%92%E1%9E%9C%E1%9F%82%E1%9E%84%E1%9E%99%E1%9E%9B%E1%9F%8B%E1%9E%96%E1%9E%B8-LLM.html">ជំពូក ១៖ ស្វែងយល់ពី Large Language Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A2-%E1%9E%91%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%93%E1%9E%93%E1%9F%90%E1%9E%99%E1%9E%A2%E1%9E%8F%E1%9F%92%E1%9E%90%E1%9E%94%E1%9E%91.html">ជំពូក ២៖ ការធ្វើការជាមួយទិន្នន័យអត្ថបទ (Working with Text Data)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ជំពូក ៣៖ ការសរសេរកូដ Attention Mechanisms</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនសង្ខេប (សិក្សាងាយ)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">កូដមេ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនពេញលេញ (សិក្សាងាយ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">កូដមេ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notebooks">Notebooks ខ្មែរសម្រាប់ជំពូកនេះ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">រចនាសម្ព័ន្ធថត</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">លំហាត់</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">រចនាសម្ព័ន្ធថត</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">លំហាត់</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A4-%E1%9E%98%E1%9F%89%E1%9E%BC%E1%9E%8A%E1%9F%82%E1%9E%9B-GPT.html">ជំពូក ៤៖ ការអនុវត្តម៉ូដែល GPT ពីមូលដ្ឋាន</a></li>
@@ -131,27 +131,157 @@
 <p>ជំពូកនេះណែនាំការសរសេរកូដយន្តការ Attention — សមាសភាគស្នូលដែលធ្វើឱ្យ LLM
 អាចយកចិត្តទុកដាក់លើផ្នែកពាក់ព័ន្ធនៃទិន្នន័យបញ្ចូល រួមទាំងការអនុវត្ត Multi-Head Attention។</p>
 <section id="id1">
-<h2>មេរៀនសង្ខេប (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>ការពន្យល់ខាងក្រោមជាអត្ថបទដើមរបស់សហគមន៍ ដើម្បីជួយឱ្យយល់គំនិតសំខាន់ៗមុនពេលអានកូដ៖</p>
+<h2>មេរៀនពេញលេញ (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>ការពន្យល់ខាងក្រោមជា <strong>អត្ថបទដើមរបស់សហគមន៍ខ្មែរ</strong> គ្របដណ្តប់គំនិតទាំងអស់នៃជំពូក ៣។
+ជំពូកនេះជាចំណុចកណ្តាលនៃគម្រោងទាំងមូល — បើអ្នកយល់ attention ច្បាស់
+ជំពូក ៤ ដល់ ៧ នឹងងាយស្រួលជាងច្រើន។</p>
+<section id="attention">
+<h3>១. ហេតុអ្វីត្រូវការ attention?<a class="headerlink" href="#attention" title="Link to this heading"></a></h3>
+<p>បញ្ហានៃភាសាគឺ <strong>បរិបទ (context)</strong>។ ន័យនៃពាក្យមួយអាស្រ័យលើពាក្យជុំវិញវា។</p>
+<p>ឧទាហរណ៍៖ ក្នុងឃ្លា <em>&quot;ខ្ញុំទិញកុំព្យូទ័រថ្មី ព្រោះវាលឿនណាស់&quot;</em> — ពាក្យ <strong>&quot;វា&quot;</strong> សំដៅលើ
+&quot;កុំព្យូទ័រ&quot; មិនមែន &quot;ខ្ញុំ&quot; ទេ។ ម៉ូដែលត្រូវតែអាចភ្ជាប់ទំនាក់ទំនងនេះបាន។</p>
+<p><strong>Attention</strong> អនុញ្ញាតឱ្យ token នីមួយៗ &quot;សួរ&quot; token ផ្សេងទៀតថា &quot;តើអ្នកសំខាន់ប៉ុណ្ណា
+សម្រាប់ខ្ញុំ?&quot; រួចយកចម្លើយមកធ្វើជាទម្ងន់។</p>
+</section>
+<section id="simplified-self-attention">
+<h3>២. ជំហានទី ១ — Simplified self-attention<a class="headerlink" href="#simplified-self-attention" title="Link to this heading"></a></h3>
+<p>កំណែសាមញ្ញបំផុត៖ គណនាតំណាងថ្មីនៃ token នីមួយៗជា <strong>មធ្យមភាគដែលមានទម្ងន់</strong>
+នៃ token ទាំងអស់ក្នុង sequence។</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>score(i,j)  = x_i . x_j          (dot product)
+weight(i,j) = softmax_j(score(i,j))
+z_i         = sum_j  weight(i,j) * x_j
+</pre></div>
+</div>
+<p>កំណែនេះ <strong>គ្មាន parameter ដែលត្រូវរៀន</strong> ទេ — វាជាគណិតវិទ្យាសុទ្ធ។
+វាមានប្រយោជន៍សម្រាប់យល់ពីមេកានិច ប៉ុន្តែមិនអាចបណ្តុះបណ្តាលបានទេ។</p>
+</section>
+<section id="self-attention">
+<h3>៣. ជំហានទី ២ — Self-attention ជាមួយទម្ងន់ដែលរៀនបាន<a class="headerlink" href="#self-attention" title="Link to this heading"></a></h3>
+<p>កំណែពិតប្រាកដណែនាំវ៉ិចទ័របីប្រភេទ ដែលកើតចេញពីការគុណ input ជាមួយម៉ាទ្រីសទម្ងន់៖</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18.0%" />
+<col style="width: 15.0%" />
+<col style="width: 67.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ឈ្មោះ</p></th>
+<th class="head"><p>ម៉ាទ្រីស</p></th>
+<th class="head"><p>តួនាទី (ការប្រៀបធៀបងាយយល់)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Query</strong> (Q)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">W_q</span></code></p></td>
+<td><p>&quot;ខ្ញុំកំពុងស្វែងរកអ្វី?&quot; — សំណួរដែល token នេះសួរ</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Key</strong> (K)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">W_k</span></code></p></td>
+<td><p>&quot;ខ្ញុំមានអ្វី?&quot; — ស្លាកដែល token នីមួយៗផ្សព្វផ្សាយ</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Value</strong> (V)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">W_v</span></code></p></td>
+<td><p>&quot;ខ្ញុំផ្តល់ព័ត៌មានអ្វី?&quot; — ខ្លឹមសារជាក់ស្តែងដែលត្រូវបញ្ជូន</p></td>
+</tr>
+</tbody>
+</table>
+<p>រូបមន្ត attention ពេញលេញ (Scaled Dot-Product Attention)៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Attention(Q, K, V) = softmax( (Q K^T) / sqrt(d_k) ) V
+</pre></div>
+</div>
+<p><strong>ហេតុអ្វីត្រូវចែកនឹង sqrt(d_k)?</strong></p>
+<p>នៅពេល <code class="docutils literal notranslate"><span class="pre">d_k</span></code> (វិមាត្រនៃ key) ធំ dot product ក៏ធំទៅតាម។ តម្លៃធំៗនេះរុញ softmax ទៅក្នុង
+តំបន់ដែល <strong>gradient តូចខ្លាំង</strong> (saturation) ធ្វើឱ្យការរៀនយឺត ឬជាប់គាំង។
+ការចែកនឹង <code class="docutils literal notranslate"><span class="pre">sqrt(d_k)</span></code> ធ្វើឱ្យ variance នៃ score នៅប្រហែល ១ ដូច្នេះ gradient មានសុខភាពល្អ។</p>
+</section>
+<section id="causal-attention">
+<h3>៤. ជំហានទី ៣ — Causal attention<a class="headerlink" href="#causal-attention" title="Link to this heading"></a></h3>
+<p>សម្រាប់ការបង្កើតអត្ថបទ ម៉ូដែល <strong>មិនត្រូវបានអនុញ្ញាតឱ្យមើលឃើញ token នៅអនាគត</strong> ទេ —
+បើមិនដូច្នោះទេវានឹង &quot;លួចមើលចម្លើយ&quot; អំឡុងពេលបណ្តុះបណ្តាល ហើយបរាជ័យពេលប្រើជាក់ស្តែង។</p>
+<p>ដំណោះស្រាយគឺ <strong>causal mask</strong> (ឬ triangular mask)៖</p>
 <ul class="simple">
-<li><p><strong>គំនិត attention</strong> — ជំនួសឱ្យការមើលគ្រប់ទីតាំងស្មើៗគ្ា ម៉ូដែល &quot;ថ្លឹង&quot; ថា token ណាខ្លះសំខាន់សម្រាប់បង្កើតការតំណាងរបស់ token នីមួយៗ។</p></li>
-<li><p><strong>Dot-product score</strong> — រង្វាស់ភាពស្រដៀងគ្នារវាង query និង key។ កាន់តែខ្ពស់ កាន់តែត្រូវយកចិត្តទុកដាក់។</p></li>
-<li><p><strong>Softmax</strong> — បំលែង scores ទៅជាទម្ងន់ដែលបូកសរុបស្មើ ១។</p></li>
-<li><p><strong>Causal mask</strong> — ទប់មិនឱយ token មើលឃើញ tokens នៅខាងមុខវា ដើម្បីឱ្យការបង្កើតអត្ថបទត្រឹមត្រូវ។</p></li>
-<li><p><strong>Q/K/V projections</strong> — ម៉ាទ្រីសទម្ងន់ដែលអាចរៀនបាន សម្រាប់បង្កើត query, key, value របស់ token នីមួយៗ។</p></li>
-<li><p><strong>Multi-head attention</strong> — ដំណើរការ attention ច្រើន &quot;ក្បាល&quot; ជាមួយគ្នា ដើម្បីមើលទិន្នន័យពីទស្សនវិស័យច្រើន។</p></li>
+<li><p>បង្កើតម៉ាទ្រីសការេដែលមានតម្លៃ ១ នៅត្រង់ និងខាងក្រោមអង្កត់ទ្រូង ហើយ ០ នៅលើអង្កត់ទ្រូង។</p></li>
+<li><p>កន្លែងដែល mask = ០ ជំនួស attention score ដោយ <code class="docutils literal notranslate"><span class="pre">-inf</span></code>។</p></li>
+<li><p>បន្ទាប់ពី softmax តម្លៃ <code class="docutils literal notranslate"><span class="pre">-inf</span></code> ក្លាយជា <strong>០</strong> ដូច្នេះ token អនាគតមិនមានឥទ្ធិពលទេ។</p></li>
 </ul>
-<p>ដំណើរការកូដក្នុងជំពូកនេះ៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mask =            scores (បន្ទាប់ពី mask)
+1 0 0 0           s00 -inf -inf -inf
+1 1 0 0    -&gt;     s10  s11  -inf -inf
+1 1 1 0           s20  s21   s22  -inf
+1 1 1 1           s30  s31   s32   s33
+</pre></div>
+</div>
+<p>ចំណាំជាក់ស្តែង៖ ក្នុង PyTorch គេច្រើនប្រើ <code class="docutils literal notranslate"><span class="pre">torch.triu</span></code> ដើម្បីបង្កើតម៉ាទ្រីសត្រីកោណ។
+សម័យថ្មីៗនេះ <code class="docutils literal notranslate"><span class="pre">F.scaled_dot_product_attention</span></code> មានប៉ារ៉ាម៉ែត្រ <code class="docutils literal notranslate"><span class="pre">is_causal=True</span></code>
+ដែលធ្វើការងារនេះដោយស្វ័យប្រវត្តិ និងលឿនជាង។</p>
+</section>
+<section id="multi-head-attention">
+<h3>៥. Multi-head attention<a class="headerlink" href="#multi-head-attention" title="Link to this heading"></a></h3>
+<p><strong>គំនិត៖</strong> ជំនួសឱ្យការមាន attention តែមួយ យើងបង្កើត &quot;ក្បាល&quot; (head) ច្រើនដែលដំណើរការ
+ស្របគ្នា ហើយរៀន <strong>ប្រភេទទំនាក់ទំនងផ្សេងៗគ្នា</strong>។ ក្បាលខ្លះអាចផ្តោតលើទំនាក់ទំនងវេយយាករណ៍
+ខ្លះផ្តោតលើការយោង (coreference) ខ្លះផ្តោតលើពាក្យជិតខាង។</p>
+<p>ដំណើរការ៖</p>
 <ol class="arabic simple">
-<li><p>គណនា attention scores ដៃ និង context vector ដំបូង។</p></li>
-<li><p>ណែនាំម៉ាទ្រីស Q/K/V ដែលរៀនបាន។</p></li>
-<li><p>បង្កប់ទាំងអស់ចូលក្លាស SelfAttention_v2។</p></li>
-<li><p>បន្ថែម causal mask និង dropout (CausalAttention)។</p></li>
-<li><p>ប្រៀបធៀបការអនុវត្ត multi-head attention ពីរបែប។</p></li>
+<li><p>បំបែកវ៉ិចទ័រ embedding ទំហំ <code class="docutils literal notranslate"><span class="pre">d_model</span></code> ជា <code class="docutils literal notranslate"><span class="pre">n_heads</span></code> ផ្នែក ដែលនីមួយៗមានវិមាត្រ
+<code class="docutils literal notranslate"><span class="pre">d_k</span> <span class="pre">=</span> <span class="pre">d_model</span> <span class="pre">/</span> <span class="pre">n_heads</span></code>។</p></li>
+<li><p>ដំណើរការ attention ដាច់ដោយឡែកលើក្បាលនីមួយៗ។</p></li>
+<li><p><strong>Concatenate</strong> លទ្ធផលទាំងអស់ចូលគ្នាវិញ។</p></li>
+<li><p>គុណជាមួយម៉ាទ្រីស output projection <code class="docutils literal notranslate"><span class="pre">W_o</span></code> ដើម្បីលាយព័ត៌មានពីគ្រប់ក្បាល។</p></li>
 </ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>ចំណុចដែលច្រើនតែច្រឡំ៖ multi-head attention <strong>មិនបង្កើនចំនួនការគណនា</strong> ទេ បើប្រៀបធៀបនឹង
+single-head ដែលមានវិមាត្រដូចគ្នា — វាគ្រាន់តែ <strong>បែងចែក</strong> វិមាត្រដដែលទៅជាផ្នែកតូចៗជាច្រើន។
+អត្ថប្រយោជន៍គឺភាពចម្រុះនៃទំនាក់ទំនងដែលរៀនបាន។</p>
+</div>
+</section>
+<section id="pytorch-buffers">
+<h3>៦. PyTorch buffers<a class="headerlink" href="#pytorch-buffers" title="Link to this heading"></a></h3>
+<p>Causal mask គឺជា tensor ដែល <strong>មិនមែនជា parameter</strong> — វាមិនត្រូវបានកែប្រែដោយ gradient ទេ
+ប៉ុន្តែវានៅតែត្រូវការធ្វើដំណើរជាមួយម៉ូដែលទៅ GPU ហើយត្រូវរក្សាក្នុង <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>។</p>
+<p>ដំណោះស្រាយគឺ <strong>register as buffer</strong>៖ <code class="docutils literal notranslate"><span class="pre">self.register_buffer('mask',</span> <span class="pre">tensor)</span></code>។
+Buffer ខុសពី <code class="docutils literal notranslate"><span class="pre">nn.Parameter</span></code> ត្រង់ថាវាមិនស្ថិតក្នុងបញ្ជីដែល optimizer ធ្វើបច្ចុប្បន្នភាពទេ។</p>
 </section>
 <section id="id2">
-<h2>កូដមេ<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<h3>៧. ប្រសិទ្ធភាព — កំណែដែលអនុវត្តលឿនជាង<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>ការអនុវត្ត attention ដោយប្រើ loop ឬការបង្កើតម៉ាទ្រីសធំៗគឺយឺត និងស៊ីអង្គចងចាំ។
+ថត bonus <code class="docutils literal notranslate"><span class="pre">02_bonus_efficient-multihead-attention</span></code> ប្រៀបធៀបកំណែផ្សេងៗ៖</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>កំណែ</p></th>
+<th class="head"><p>លក្ខណៈ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Loop លើ head នីមួយៗ</p></td>
+<td><p>សាមញ្ញបំផុត យឺតបំផុត</p></td>
+</tr>
+<tr class="row-odd"><td><p>Batched matrix multiplication</p></td>
+<td><p>ប្រើ <code class="docutils literal notranslate"><span class="pre">bmm</span></code> ដំណើរការគ្រប់ head ក្នុងពេលតែមួយ</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">F.scaled_dot_product_attention</span></code></p></td>
+<td><p>ប្រើ FlashAttention ខាងក្នុង — លឿនបំផុត និងសន្សំអង្គចងចាំបំផុត</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id3">
+<h3>៨. សំណួរពិនិត្យការយល់ដឹង<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>តើ Q, K, V ខុសគ្នាត្រង់ណា ហើយហេតុអ្វីត្រូវមានបីជំនួសមួយ?</p></li>
+<li><p>បើលុបការចែកនឹង <code class="docutils literal notranslate"><span class="pre">sqrt(d_k)</span></code> តើអ្វីនឹងកើតឡើងចំពោះ gradient?</p></li>
+<li><p>ហេតុអ្វី causal mask ត្រូវប្រើ <code class="docutils literal notranslate"><span class="pre">-inf</span></code> ជាជាង <code class="docutils literal notranslate"><span class="pre">0</span></code> មុនពេល softmax?</p></li>
+<li><p>តើ <code class="docutils literal notranslate"><span class="pre">n_heads=12</span></code> និង <code class="docutils literal notranslate"><span class="pre">d_model=768</span></code> ផ្តល់ <code class="docutils literal notranslate"><span class="pre">d_k</span></code> ប៉ុន្មាន?</p></li>
+<li><p>តើ buffer ខុសពី parameter ត្រង់ណា?</p></li>
+</ol>
+</section>
+</section>
+<section id="id4">
+<h2>កូដមេ<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <p>កូដមេស្ថិតក្នុងថត
 <a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch03/01_main-chapter-code">ch03/01_main-chapter-code</a>៖</p>
 <table class="docutils align-default">
@@ -187,8 +317,8 @@
 </ul>
 <p>សូមមើលបញ្ជីពេញលេញ និងរបៀបដំណើរការក្នុងទំព័រ <a class="reference internal" href="../%E1%9E%99%E1%9F%84%E1%9E%84/%E1%9E%8E%E1%9E%BC%E1%9E%8F%E1%9E%94%E1%9F%8A%E1%9E%BB%E1%9E%80-%E1%9E%81%E1%9F%92%E1%9E%98%E1%9F%82%E1%9E%9A.html"><span class="doc">Notebooks ភាសាខ្មែរ (Companion Notebooks)</span></a>។</p>
 </section>
-<section id="id4">
-<h2>រចនាសម្ព័ន្ធថត<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<section id="id6">
+<h2>រចនាសម្ព័ន្ធថត<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 40.0%" />
@@ -212,8 +342,8 @@
 </tbody>
 </table>
 </section>
-<section id="id5">
-<h2>លំហាត់<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<section id="id7">
+<h2>លំហាត់<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
 <p>ចម្លើយលំហាត់មានក្នុង <code class="docutils literal notranslate"><span class="pre">exercise-solutions.ipynb</span></code> ខាងលើ និងក្នុងសង្ខេបនៃភាគបន្ថែម C។</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>

@@ -78,11 +78,11 @@
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A3-%E1%9E%9F%E1%9E%9A%E1%9E%9F%E1%9F%81%E1%9E%9A%E1%9E%80%E1%9E%BC%E1%9E%8A-attention.html">ជំពូក ៣៖ ការសរសេរកូដ Attention Mechanisms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A4-%E1%9E%98%E1%9F%89%E1%9E%BC%E1%9E%8A%E1%9F%82%E1%9E%9B-GPT.html">ជំពូក ៤៖ ការអនុវត្តម៉ូដែល GPT ពីមូលដ្ឋាន</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ជំពូក ៥៖ Pretraining លើទិន្នន័យគ្មានស្លាក</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនសង្ខេប (សិក្សាងាយ)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">កូដមេ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">មេរៀនពេញលេញ (សិក្សាងាយ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">កូដមេ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notebooks">Notebooks ខ្មែរសម្រាប់ជំពូកនេះ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">សម្ភារៈបន្ថែម</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">លំហាត់</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">សម្ភារៈបន្ថែម</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">លំហាត់</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="%E1%9E%87%E1%9F%86%E1%9E%96%E1%9E%BC%E1%9E%80%E1%9F%A6-finetuning-classification.html">ជំពូក ៦៖ Finetuning សម្រាប់ចំណាត់ថ្នាក់អត្ថបទ</a></li>
@@ -134,28 +134,155 @@
 ជំនាន់ថ្មីៗពីមូលដ្ឋាន។ បណ្ណាល័យដែល <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> កំណត់សម្រាប់ជំពូកនេះ៖
 <code class="docutils literal notranslate"><span class="pre">tiktoken</span></code> · <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code> · <code class="docutils literal notranslate"><span class="pre">tqdm</span></code>។</p>
 <section id="id1">
-<h2>មេរៀនសង្ខេប (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>ការពន្យល់ខាងក្រោមជាអត្ថបទដើមរបស់សហគមន៍ ដើម្បីជួយឱ្យយល់គំនិតសំខាន់ៗមុនពេលអានកូដ៖</p>
+<h2>មេរៀនពេញលេញ (សិក្សាងាយ)<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>ការពន្យល់ខាងក្រោមជា <strong>អត្ថបទដើមរបស់សហគមន៍ខ្មែរ</strong> គ្របដណ្តប់គំនិតទាំងអស់នៃជំពូក ៥។
+ជំពូកនេះយកម៉ូដែលពីជំពូក ៤ មក <strong>បណ្តុះបណ្តាលពិតប្រាកដ</strong>។</p>
+<section id="id2">
+<h3>១. ទិដ្ឋភាពទូទៅនៃដំណើរការ pretraining<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>១. រៀបចំទិន្នន័យ  -&gt; ២. វាស់ loss  -&gt; ៣. កំណត់ optimizer
+     -&gt; ៤. Training loop  -&gt; ៥. វាយតម្លៃ  -&gt; ៦. រក្សាទុក/ផ្ទុក weights
+</pre></div>
+</div>
+</section>
+<section id="loss">
+<h3>២. អនុគមន៍ loss — ការវាស់ថាម៉ូដែលខុសប៉ុណ្ណា<a class="headerlink" href="#loss" title="Link to this heading"></a></h3>
+<p>សម្រាប់ការព្យាករណ៍ token បន្ទាប់ យើងប្រើ <strong>cross-entropy loss</strong>។</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Loss = - (1/N) * sum_i  log( p( token_ពិត_i | context_i ) )
+</pre></div>
+</div>
+<p>ការបកស្រាយងាយយល់៖</p>
 <ul class="simple">
-<li><p><strong>Next-token training</strong> — បញ្ចូលជាបន្សំ tokens ហើយ target ជាបន្សំនោះរំកិល ១។ ម៉ូដែលរៀនព្យាករណ៍ token បន្ទាប់។</p></li>
-<li><p><strong>Cross-entropy និង perplexity</strong> — loss វាស់គម្លាងរវាងការព្យាករណ៍ និងចម្លើយពិត។ perplexity = exp(loss) ងាយស្រម្ង់ថា &quot;មធ្យមមានជម្រើសប៉ុន្មាន&quot;។</p></li>
-<li><p><strong>Training loop និង validation</strong> — រៀប batch → forward → loss → backward → optimizer.step()។ ការត្រួតពិនិត្យលើ validation ជួយឃើញ overfitting។</p></li>
-<li><p><strong>LR warmup + cosine decay</strong> — learning rate ឡើងបន្តិចម្តង បន្ទាប់មកថយចុះរលូន ធ្វើឱ្យការបណ្តុះបណ្តាលស្ថិរ និងល្អជាង។</p></li>
-<li><p><strong>Temperature និង top-k</strong> — គ្រប់គ្រងភាពចៃដន្យពេលបង្កើតអត្ថបទ។ temperature=0 និងគ្មាន top-k មានន័យថាយក token ដែលមានប្រូបាបខ្ពស់បំផុតជានិច្ច។</p></li>
-<li><p><strong>ការផ្ទុក weights pretrained</strong> — ជំនួសឱ្យការរៀនពីសូន្យ អាចយក weights ផ្លូវការ (GPT-2) មកដាក់ក្នុងម៉ូដែលរបស់យើង។</p></li>
+<li><p>បើម៉ូដែលផ្តល់ប្រូបាបខ្ពស់ដល់ token ត្រឹមត្រូវ → <code class="docutils literal notranslate"><span class="pre">log(p)</span></code> ជិត ០ → loss តូច។</p></li>
+<li><p>បើម៉ូដែលផ្តល់ប្រូបាបតូចដល់ token ត្រឹមត្រូវ → <code class="docutils literal notranslate"><span class="pre">log(p)</span></code> អវិជ្ជមានខ្លាំង → loss ធំ។</p></li>
 </ul>
-<p>ដំណើរការកូដក្នុងជំពូកនេះ៖</p>
+<p><strong>Perplexity</strong> គឺជា exponential នៃ cross-entropy loss៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>perplexity = exp(loss)
+</pre></div>
+</div>
+<p>ការបកស្រាយ៖ perplexity = ១០ មានន័យថាម៉ូដែល &quot;ងងឹតងងល់&quot; រវាងជម្រើសប្រហែល ១០។
+perplexity ទាបជាង = ល្អជាង។ វាមានប្រយោជន៍ជាង loss ឆៅ ព្រោះវាងាយបកស្រាយ។</p>
+</section>
+<section id="decoding-strategies">
+<h3>៣. Decoding strategies ក្នុងការវាយតម្លៃ<a class="headerlink" href="#decoding-strategies" title="Link to this heading"></a></h3>
+<p>ដូចបានពន្យល់ក្នុងជំពូក ៤ — greedy, temperature scaling, និង top-k ទាំងអស់ត្រូវបាន
+ប្រើក្នុងជំពូកនេះដើម្បីពិនិត្យគុណភាពអត្ថបទដែលម៉ូដែលបង្កើត អំឡុងពេលបណ្តុះបណ្តាល។</p>
+</section>
+<section id="optimizer-adamw">
+<h3>៤. Optimizer — AdamW<a class="headerlink" href="#optimizer-adamw" title="Link to this heading"></a></h3>
+<p><strong>AdamW</strong> គឺជា optimizer ស្តង់ដារសម្រាប់ Transformer។ វាផ្សំគំនិតពីរ៖</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 72.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ធាតុ</p></th>
+<th class="head"><p>តួនាទី</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Momentum</p></td>
+<td><p>រក្សា &quot;ល្បឿន&quot; នៃការធ្វើបច្ចុប្បន្នភាព ដើម្បីឆ្លងកាត់រណ្តៅតូចៗ និងបន្ថយការញ័រ</p></td>
+</tr>
+<tr class="row-odd"><td><p>Adaptive learning rate</p></td>
+<td><p>កែ learning rate សម្រាប់ parameter នីមួយៗដោយផ្អែកលើ gradient ពីមុន</p></td>
+</tr>
+<tr class="row-even"><td><p>Weight decay (decoupled)</p></td>
+<td><p>ការពារ overfitting ដោយរុញទម្ងន់ឱ្យតូច។ AdamW ធ្វើវា <strong>ដាច់ពី gradient update</strong> ដែលត្រឹមត្រូវជាង Adam ធម្មតា</p></td>
+</tr>
+</tbody>
+</table>
+<p>ហេតុអ្វីមិនប្រើ SGD ធម្មតា? ព្រោះ Transformer មាន loss landscape ស្មុគស្មាញ
+ហើយ SGD ត្រូវការការកំណត់ learning rate យ៉ាងប្រុងប្រយ័ត្នខ្លាំង។</p>
+</section>
+<section id="training-loop">
+<h3>៥. Training loop — បេះដូងនៃការបណ្តុះបណ្តាល<a class="headerlink" href="#training-loop" title="Link to this heading"></a></h3>
+<p>រង្វិលជុំស្តង់ដារមាន ៥ ជំហាន ដែលត្រូវចាំឱ្យបានត្រឹមត្រូវ៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>for epoch in range(num_epochs):
+    for input_batch, target_batch in train_loader:
+
+        optimizer.zero_grad()          # ១. សម្អាត gradient ចាស់
+        logits = model(input_batch)    # ២. forward pass
+        loss   = cross_entropy(logits, target_batch)   # ៣. គណនា loss
+        loss.backward()                # ៤. backward pass (គណនា gradient)
+        optimizer.step()               # ៥. ធ្វើបច្ចុប្បន្នភាពទម្ងន់
+</pre></div>
+</div>
+<p>កំហុសដែលសិក្ខាកាមច្រើនតែធ្វើ៖</p>
+<ul class="simple">
+<li><p><strong>ភ្លេច ``zero_grad()``</strong> → gradient កើនឡើងបន្តបន្ទាប់ → loss ផ្ទុះឡើង។</p></li>
+<li><p><strong>ហៅ ``loss.backward()`` ច្រើនដង</strong> ដោយមិន <code class="docutils literal notranslate"><span class="pre">retain_graph=True</span></code> → error។</p></li>
+<li><p><strong>មិនដាក់ម៉ូដែលក្នុង ``eval()`` ពេលវាយតម្លៃ</strong> → Dropout និង LayerNorm ឥរិយាបថខុស។</p></li>
+<li><p><strong>ភ្លេច ``torch.no_grad()`` ពេល evaluate</strong> → ស៊ីអង្គចងចាំខ្លាំង និងយឺត។</p></li>
+</ul>
+</section>
+<section id="overfitting">
+<h3>៦. ការត្រួតពិនិត្យ overfitting<a class="headerlink" href="#overfitting" title="Link to this heading"></a></h3>
+<p>ដំណើរការធម្មតាគឺត្រួតពិនិត្យ loss លើទាំង <strong>training set</strong> និង <strong>validation set</strong>៖</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>train loss ចុះ  +  val loss ចុះ     -&gt;  ល្អ បណ្តុះបណ្តាលបន្ត
+train loss ចុះ  +  val loss ឡើង     -&gt;  overfitting គួរបញ្ឈប់ ឬប្រើ regularization
+train loss មិនចុះ                   -&gt;  ពិនិត្យ learning rate, data pipeline, gradient
+</pre></div>
+</div>
+<p>ឧបករណ៍ទប់ស្កាត់ overfitting ក្នុងគម្រោងនេះ៖ <strong>Dropout</strong> និង <strong>weight decay</strong>។</p>
+</section>
+<section id="weights">
+<h3>៧. ការរក្សាទុក និងផ្ទុក weights<a class="headerlink" href="#weights" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>រក្សាទុក:  torch.save(model.state_dict(), "model.pth")
+ផ្ទុក:      model.load_state_dict(torch.load("model.pth"))
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">state_dict</span></code> គឺជា dictionary នៃ tensor ទាំងអស់ (parameter + buffer)។
+ចំណាំថា buffer ក៏ត្រូវបានរក្សាទុកដែរ — នេះជាហេតុផលដែល causal mask ត្រូវចុះឈ្មោះជា buffer
+(មើលជំពូក ៣)។</p>
+</section>
+<section id="gpt-2-weights-openai">
+<h3>៨. ការផ្ទុក GPT-2 weights ពី OpenAI<a class="headerlink" href="#gpt-2-weights-openai" title="Link to this heading"></a></h3>
+<p>ជំនួសឱ្យការបណ្តុះបណ្តាលពីសូន្យ (ដែលត្រូវការ GPU ច្រើន) គម្រោងនេះ <strong>ផ្ទុកទម្ងន់ GPT-2 124M
+ដែល OpenAI បានប្រកាសជាសាធារណៈ</strong> ចូលទៅក្នុងស្ថាបត្យកម្មដែលយើងសរសេរដោយខ្លួនឯង។</p>
+<p>នេះជាវិធីសាស្ត្រដ៏ល្អដើម្បីផ្ទៀងផ្ទាត់ថាកូដរបស់អ្នកត្រឹមត្រូវ៖ បើស្ថាបត្យកម្មរបស់អ្នក
+ត្រូវគ្នានឹង GPT-2 ពិតប្រាកដ នោះទម្ងន់នឹងផ្ទុកបាន ហើយម៉ូដែលនឹងបង្កើតអត្ថបទមានន័យភ្លាម។</p>
+<p>កំហុសធម្មតាពេលផ្ទុកទម្ងន់៖</p>
+<ul class="simple">
+<li><p>ឈ្មោះ key មិនត្រូវគ្នា → ត្រូវការការផ្គូផ្គងឈ្មោះ (name mapping)។</p></li>
+<li><p>ទំហំ tensor មិនត្រូវគ្នា → ស្ថាបត្យកម្មខុស ឬ config ខុស។</p></li>
+<li><p>ទម្រង់ <code class="docutils literal notranslate"><span class="pre">QKV</span></code> រួមបញ្ចូលគ្នា vs ដាច់ដោយឡែក → ត្រូវបំបែក/ផ្គុំឱ្យត្រូវ។</p></li>
+</ul>
+</section>
+<section id="weight-tying-embedding-output-layer">
+<h3>៩. Weight tying — ចែករំលែក embedding ជាមួយ output layer<a class="headerlink" href="#weight-tying-embedding-output-layer" title="Link to this heading"></a></h3>
+<p><strong>គំនិត៖</strong> token embedding table (<code class="docutils literal notranslate"><span class="pre">vocab_size</span> <span class="pre">x</span> <span class="pre">emb_dim</span></code>) និង output head
+(<code class="docutils literal notranslate"><span class="pre">emb_dim</span> <span class="pre">x</span> <span class="pre">vocab_size</span></code>) មានទំហំដូចគ្នា ហើយតំណាងគំនិតដូចគ្នា។ ដូច្នេះយើងអាច
+<strong>ប្រើម៉ាទ្រីសតែមួយ</strong> សម្រាប់ទាំងពីរ។</p>
+<p>អត្ថប្រយោជន៍៖</p>
+<ul class="simple">
+<li><p>កាត់បន្ថយចំនួន parameter យ៉ាងច្រើន (សម្រាប់ GPT-2 small ប្រហែល ៣៨ លាន parameter)។</p></li>
+<li><p>ជារឿយៗជួយឱ្យម៉ូដែលរៀនបានល្អជាង ព្រោះ gradient ពីទាំងពីរផ្លូវពង្រឹងគ្នា។</p></li>
+</ul>
+</section>
+<section id="pretraining-project-gutenberg">
+<h3>១០. Pretraining លើទិន្នន័យធំជាង (Project Gutenberg)<a class="headerlink" href="#pretraining-project-gutenberg" title="Link to this heading"></a></h3>
+<p>ថត bonus <code class="docutils literal notranslate"><span class="pre">03_bonus_pretraining_on_gutenberg</span></code> បង្ហាញពីរបៀបបណ្តុះបណ្តាលម៉ូដែល
+ឱ្យយូរជាងមុនលើ corpus សៀវភៅទាំងមូល។ ចំណុចសំខាន់ដែលអ្នកនឹងជួប៖</p>
+<ul class="simple">
+<li><p>ការដោះស្រាយអត្ថបទដែលធំជាងអង្គចងចាំ (ត្រូវការ streaming ឬ chunking)។</p></li>
+<li><p>ការរៀបចំ tokenization ជាមុន ដើម្បីកុំឱ្យ tokenize ម្តងទៀតរាល់ epoch។</p></li>
+<li><p>ការតាមដាន loss លើជំហានច្រើន និងការរក្សាទុក checkpoint ជាប្រចាំ។</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>១១. សំណួរពិនិត្យការយល់ដឹង<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
-<li><p>វាយតម្លៃប្រូបាបដំបូង និងគណនា loss ដោយដៃ។</p></li>
-<li><p>ផ្ទុកទិន្នន័យ បំបែក train/val និងបង្កើត loaders។</p></li>
-<li><p>សរសេរអនុគមន៍ train (calc_loss_batch, train_model_simple)។</p></li>
-<li><p>គូសក្រាផ loss និងបង្កើតអត្ថបទគំរូ។</p></li>
-<li><p>សិក្សា sampling, temperature, top-k និងអនុគមន៍ generate។</p></li>
-<li><p>រក្សាទុក/ផ្ទុក weights ហើយផ្ទុក weights GPT-2 ចូលម៉ូដែលយើង។</p></li>
+<li><p>តើអ្វីជាភាពខុសគ្នារវាង cross-entropy loss និង perplexity?</p></li>
+<li><p>ហេតុអ្វី AdamW ខុសពី Adam ធម្មតា?</p></li>
+<li><p>តើអ្វីកើតឡើងបើអ្នកភ្លេច <code class="docutils literal notranslate"><span class="pre">optimizer.zero_grad()</span></code>?</p></li>
+<li><p>តើអ្នកដឹងថាម៉ូដែល overfit ដោយរបៀបណា ដោយមើលតែលើ loss?</p></li>
+<li><p>ហេតុអ្វី weight tying ជួយកាត់បន្ថយ parameter?</p></li>
 </ol>
 </section>
-<section id="id2">
-<h2>កូដមេ<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+</section>
+<section id="id4">
+<h2>កូដមេ<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <p>កូដមេស្ថិតក្នុងថត
 <a class="reference external" href="https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch05/01_main-chapter-code">ch05/01_main-chapter-code</a>៖</p>
 <table class="docutils align-default">
@@ -193,8 +320,8 @@
 </ul>
 <p>សូមមើលបញ្ជីពេញលេញ និងរបៀបដំណើរការក្នុងទំព័រ <a class="reference internal" href="../%E1%9E%99%E1%9F%84%E1%9E%84/%E1%9E%8E%E1%9E%BC%E1%9E%8F%E1%9E%94%E1%9F%8A%E1%9E%BB%E1%9E%80-%E1%9E%81%E1%9F%92%E1%9E%98%E1%9F%82%E1%9E%9A.html"><span class="doc">Notebooks ភាសាខ្មែរ (Companion Notebooks)</span></a>។</p>
 </section>
-<section id="id3">
-<h2>សម្ភារៈបន្ថែម<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="id5">
+<h2>សម្ភារៈបន្ថែម<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 40.0%" />
@@ -263,8 +390,8 @@
 </tbody>
 </table>
 </section>
-<section id="id4">
-<h2>លំហាត់<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<section id="id6">
+<h2>លំហាត់<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <p>ចម្លើយលំហាត់មានក្នុង <code class="docutils literal notranslate"><span class="pre">exercise-solutions.ipynb</span></code> ខាងលើ និងក្នុងសង្ខេបនៃភាគបន្ថែម C។</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
