@@ -2,7 +2,7 @@ name: Documentation and Notebook Validation
 
 on:
   push:
-    branches: [main, "quality/**"]
+    branches: [main]
   pull_request:
     branches: [main, "quality/**"]
   workflow_dispatch:
