@@ -1,5 +1,5 @@
 .. meta::
-   :description: Notebooks ភាសាខ្មែរ (companion notebooks) — កូដដូច upstream ១០% ជាមួយការពន្យល់ខ្មែរដើម។ Khmer companion notebooks — code identical to upstream with original Khmer explanations.
+   :description: Notebooks ភាសាខ្មែរ (companion notebooks) — កូដដូច upstream ១០០% ជាមួយការពន្យល់ខ្មែរដើម។ Khmer companion notebooks — code identical to upstream with original Khmer explanations.
    :keywords: notebook, ipynb, ណូតប៊ុក, ខ្មែរ, Jupyter, Colab, companion, Apache-2.0
 
 Notebooks ភាសាខ្មែរ (Companion Notebooks)
