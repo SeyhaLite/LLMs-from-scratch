@@ -40,9 +40,9 @@
 | ៤. សាកល្បង Notebook | ដំណើរការកូដ និងលំហាត់នៅក្នុង JupyterLab ឬ VS Code។ |
 | ៥. សិក្សាបន្ថែម | ពិនិត្យភាគបន្ថែម វចនានុក្រម និងសម្ភារៈផ្សេងៗ។ |
 
-- [ចាប់ផ្តើមពីទិដ្ឋភាពទូទៅ](https://llms-from-scratch.readthedocs.io/en/latest/ការចាប់ផ្តើម/ទិដ្ឋភាពទូទៅ.html)
-- [ការដំឡើងបរិស្ថាន](https://llms-from-scratch.readthedocs.io/en/latest/ការចាប់ផ្តើម/ការដំឡើងបរិស្ថាន.html)
-- [ការទាញយកកូដ](https://llms-from-scratch.readthedocs.io/en/latest/ការចាប់ផ្តើម/ការទាញយកកូដ.html)
+- [ចាប់ផ្តើមពីទិដ្ឋភាពទូទៅ](https://seyhalite.github.io/LLMs-from-scratch/ការចាប់ផ្តើម/ទិដ្ឋភាពទូទៅ.html)
+- [ការដំឡើងបរិស្ថាន](https://seyhalite.github.io/LLMs-from-scratch/ការចាប់ផ្តើម/ការដំឡើងបរិស្ថាន.html)
+- [ការទាញយកកូដ](https://seyhalite.github.io/LLMs-from-scratch/ការចាប់ផ្តើម/ការទាញយកកូដ.html)
 
 **ចំណេះដឹងមុនចាប់ផ្តើម៖** គួរមានមូលដ្ឋាន Python។ ការយល់ដឹងខ្លះអំពី Neural Networks និង PyTorch នឹងជួយឲ្យរៀនបានងាយជាងមុន ប៉ុន្តែអាចរៀនបន្ថែមតាមឯកសារបាន។
 
@@ -59,7 +59,7 @@
 - **១៩ Notebook ស្នូល** នៅថតខាងក្រៅ សម្រាប់ជំពូក និងលំហាត់សំខាន់ៗ។
 - **៤៩ Notebook បន្ថែម** នៅក្នុងថត **ណូតប៊ុក-ខ្មែរ/បន្ថែម/** ដែលរៀបតាមជំពូក និងប្រធានបទ។
 
-Notebook ទាំងនេះមានកូដសម្រាប់អនុវត្ត ព្រមទាំងការពន្យល់ និង comments ជាភាសាខ្មែរ។ ព័ត៌មានអំពីឯកសារនីមួយៗមាននៅក្នុង [ទំព័រ Notebook ខ្មែរ](https://llms-from-scratch.readthedocs.io/en/latest/យោង/ណូតប៊ុក-ខ្មែរ.html)។
+Notebook ទាំងនេះមានកូដសម្រាប់អនុវត្ត ព្រមទាំងការពន្យល់ និង comments ជាភាសាខ្មែរ។ ព័ត៌មានអំពីឯកសារនីមួយៗមាននៅក្នុង [ទំព័រ Notebook ខ្មែរ](https://seyhalite.github.io/LLMs-from-scratch/យោង/ណូតប៊ុក-ខ្មែរ.html)។
 
 ### ៣. កូដ និងទិន្នន័យពី Upstream
 
@@ -128,7 +128,7 @@ Notebook ទាំងនេះមានកូដសម្រាប់អនុ�
 
 ### សម្រាប់ដំណើរការ Notebook
 
-អ្នកអាចប្រើ JupyterLab ឬ VS Code ដើម្បីបើកឯកសារ **.ipynb**។ សូមអាន [ការណែនាំអំពី Notebook](https://llms-from-scratch.readthedocs.io/en/latest/យោង/ណូតប៊ុក-ខ្មែរ.html) ជាមុន ព្រោះ Notebook មួយចំនួនត្រូវការឯកសារជំនួយ ទិន្នន័យ ឬ pretrained weights។ ការទាញយក weights អាចត្រូវការអ៊ីនធឺណិត និងទំហំផ្ទុកគ្រប់គ្រាន់។
+អ្នកអាចប្រើ JupyterLab ឬ VS Code ដើម្បីបើកឯកសារ **.ipynb**។ សូមអាន [ការណែនាំអំពី Notebook](https://seyhalite.github.io/LLMs-from-scratch/យោង/ណូតប៊ុក-ខ្មែរ.html) ជាមុន ព្រោះ Notebook មួយចំនួនត្រូវការឯកសារជំនួយ ទិន្នន័យ ឬ pretrained weights។ ការទាញយក weights អាចត្រូវការអ៊ីនធឺណិត និងទំហំផ្ទុកគ្រប់គ្រាន់។
 
 ## រចនាសម្ព័ន្ធឃ្លាំង
 
@@ -173,7 +173,7 @@ LLMs-from-scratch/
 | ផ្នែក | អាជ្ញាបណ្ណ / កម្មសិទ្ធិ |
 |---|---|
 | អត្ថបទពន្យល់ និងការរៀបចំជាភាសាខ្មែរ | [CC BY 4.0](LICENSE) |
-| កូដ, theme និង configuration របស់គម្រោង | [MIT](LICENSE-CODE) |
+| Theme, template និង build configuration ដែលសហគមន៍បង្កើត | [MIT](LICENSE-CODE) |
 | កូដដែលបានចម្លងពី upstream | Apache License 2.0 — Sebastian Raschka |
 | អត្ថបទ និងរូបភាពសៀវភៅ | ជាកម្មសិទ្ធិរបស់ Manning Publications និងមិនត្រូវបានចម្លងក្នុងគម្រោងនេះទេ |
 
