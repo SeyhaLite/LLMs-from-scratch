@@ -21,11 +21,11 @@
    * - ធនធាន
      - តំណភ្ជាប់
    * - ឯកសារសហគមន៍ (Read the Docs)
-     - https://llms-from-scratch.readthedocs.io/
+     - https://llms-from-scratch.readthedocs.io/km/latest/km/latest/
    * - ឃ្លាំងកូដ upstream
      - https://github.com/rasbt/LLMs-from-scratch
    * - សៀវភៅនៅ Manning (ក្រុមហ៊ុនបោះពុម្ព)
-     - http://mng.bz/orYv
+     - https://www.manning.com/books/build-a-large-language-model-from-scratch
    * - សៀវភៅនៅ Amazon.com
      - https://www.amazon.com/gp/product/1633437167
    * - ISBN
@@ -33,9 +33,9 @@
    * - វីដេអូមេរៀន (17 ម៉ោង 15 នាទី)
      - https://www.manning.com/livevideo/master-and-build-large-language-models
    * - PDF ឥតគិតថ្លៃ Test Yourself (170 ទំព័រ)
-     - https://www.manning.com/books/test-yourself-on-build-a-large-language-model-from-scratch
+     - https://www.manning.com/books/test-yourself-on-sebastian-raschkas-build-a-large-language-model-from-scratch
    * - សៀវភៅបន្ត Build A Reasoning Model (From Scratch)
-     - https://mng.bz/lZ5B
+     - https://www.manning.com/books/build-a-reasoning-model-from-scratch
    * - ឃ្លាំង Reasoning From Scratch
      - https://github.com/rasbt/reasoning-from-scratch
    * - របៀបអានសៀវភៅបច្ចេកទេស

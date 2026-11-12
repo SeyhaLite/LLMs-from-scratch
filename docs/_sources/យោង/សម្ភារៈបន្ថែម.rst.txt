@@ -124,9 +124,9 @@
 **ការវាយតម្លៃ (Evaluation)**
 
 - `ការវាយតម្លៃផ្អែកលើ Verifier (MATH-500) <https://github.com/rasbt/reasoning-from-scratch/tree/main/ch03>`_
-- `ការវាយតម្លៃសំណួរចម្រើស (MMLU) <https://github.com/rasbt/reasoning-from-scratch/blob/main/chF/02_mmlu>`_
-- `ការវាយតម្លៃតាម LLM Leaderboard <https://github.com/rasbt/reasoning-from-scratch/blob/main/chF/03_leaderboards>`_
-- `ការវាយតម្លៃដោយ LLM-as-a-Judge <https://github.com/rasbt/reasoning-from-scratch/blob/main/chF/04_llm-judge>`_
+- `ការវាយតម្លៃសំណួរចម្រើស (MMLU) <https://github.com/rasbt/reasoning-from-scratch/tree/main/chF/02_mmlu>`_
+- `ការវាយតម្លៃតាម LLM Leaderboard <https://github.com/rasbt/reasoning-from-scratch/tree/main/chF/03_leaderboards>`_
+- `ការវាយតម្លៃដោយ LLM-as-a-Judge <https://github.com/rasbt/reasoning-from-scratch/tree/main/chF/04_llm-judge>`_
 
 **ការពង្រីក Inference (Inference Scaling)**
 

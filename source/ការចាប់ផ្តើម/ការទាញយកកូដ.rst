@@ -19,7 +19,7 @@
 
    git clone --depth 1 https://github.com/rasbt/LLMs-from-scratch.git
 
-វិធីទី ២ — ចុចប៊ូតុង `Download ZIP <https://github.com/rasbt/LLMs-from-scratch/archive/refs/heads/main.zip>`_
+វិធីទី ២ — ចុចប៊ូតុង `Download ZIP <https://codeload.github.com/rasbt/LLMs-from-scratch/zip/refs/heads/main>`_
 នៅលើគេហទំព័រ GitHub។
 
 .. note::

@@ -8,11 +8,11 @@
 
 | ធនធាន | តំណភ្ជាប់ |
 |---|---|
-| ឯកសារសិក្សាជាខ្មែរ (Read the Docs) | [llms-from-scratch.readthedocs.io](https://llms-from-scratch.readthedocs.io/) |
+| ឯកសារសិក្សាជាខ្មែរ (Read the Docs) | [llms-from-scratch.readthedocs.io](https://llms-from-scratch.readthedocs.io/km/latest/) |
 | គេហទំព័រ GitHub Pages | [seyhalite.github.io/LLMs-from-scratch](https://seyhalite.github.io/LLMs-from-scratch/) |
 | ឃ្លាំងឯកសារខ្មែរ | [SeyhaLite/LLMs-from-scratch](https://github.com/SeyhaLite/LLMs-from-scratch) |
 | កូដផ្លូវការរបស់អ្នកនិពន្ធ (Upstream) | [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) |
-| សៀវភៅនៅ Manning | [Build a Large Language Model (From Scratch)](https://mng.bz/orYv) |
+| សៀវភៅនៅ Manning | [Build a Large Language Model (From Scratch)](https://www.manning.com/books/build-a-large-language-model-from-scratch) |
 
 ## គម្រោងនេះមានអ្វីខ្លះ?
 
