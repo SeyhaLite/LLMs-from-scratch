@@ -21,7 +21,7 @@
    * - ធនធាន
      - តំណភ្ជាប់
    * - ឯកសារសហគមន៍ (Read the Docs)
-     - https://llms-from-scratch.readthedocs.io/km/latest/km/latest/
+     - https://llms-from-scratch.readthedocs.io/km/latest/
    * - ឃ្លាំងកូដ upstream
      - https://github.com/rasbt/LLMs-from-scratch
    * - សៀវភៅនៅ Manning (ក្រុមហ៊ុនបោះពុម្ព)
