@@ -8,7 +8,10 @@ author = "SeyhaLite"
 
 language = "km"
 
-extensions = ["sphinx_sitemap"]
+import os
+
+# The sitemap extension is for HTML builds; it has no pages to process in linkcheck.
+extensions = [] if os.environ.get("SPHINX_LINKCHECK") == "1" else ["sphinx_sitemap"]
 
 # Primary host (GitHub Pages) — enables sitemap.xml and canonical URLs
 html_baseurl = "https://seyhalite.github.io/LLMs-from-scratch/"

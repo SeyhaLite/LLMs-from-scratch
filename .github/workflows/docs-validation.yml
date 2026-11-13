@@ -1,0 +1,84 @@
+name: Documentation and Notebook Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, "quality/**"]
+  workflow_dispatch:
+  schedule:
+    - cron: "30 1 * * 1" # រៀងរាល់ថ្ងៃចន្ទ ម៉ោង 08:30 នៅកម្ពុជា (UTC+7)
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  documentation:
+    name: Build Sphinx and check documentation links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install documentation dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Validate Khmer documentation sources
+        run: python scripts/validate_docs_sources.py --source source
+
+      - name: Build HTML and treat warnings as errors
+        run: sphinx-build -W --keep-going -b html source build/html
+
+      - name: Check external and internal documentation links
+        env:
+          SPHINX_LINKCHECK: "1"
+        run: >-
+          sphinx-build -W --keep-going -b linkcheck
+          -D linkcheck_timeout=20
+          -D linkcheck_retries=2
+          -D linkcheck_workers=5
+          -D linkcheck_anchors=0
+          source build/linkcheck
+
+      - name: Upload link-check report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sphinx-linkcheck-report
+          path: build/linkcheck/output.txt
+          if-no-files-found: ignore
+          retention-days: 14
+
+  notebooks:
+    name: Validate all 68 Khmer notebooks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install notebook validator
+        run: python -m pip install "nbformat==5.10.4"
+
+      - name: Validate notebook JSON, schema, cells and Khmer text
+        run: >-
+          python scripts/validate_notebooks.py
+          --root "ណូតប៊ុក-ខ្មែរ"
+          --expected-total 68
+          --expected-core 19
+          --expected-bonus 49

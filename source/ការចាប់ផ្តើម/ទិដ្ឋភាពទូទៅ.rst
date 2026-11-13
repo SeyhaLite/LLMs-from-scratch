@@ -40,7 +40,7 @@
    * - ឃ្លាំងកូដផ្លូវការ
      - https://github.com/rasbt/LLMs-from-scratch
    * - សៀវភៅនៅ Manning
-     - http://mng.bz/orYv
+     - https://www.manning.com/books/build-a-large-language-model-from-scratch
    * - សៀវភៅនៅ Amazon.com
      - https://www.amazon.com/gp/product/1633437167
    * - ISBN
@@ -109,7 +109,7 @@
      - ``ch07.ipynb`` · ``gpt_instruction_finetuning.py`` (summary) · ``ollama_evaluate.py`` (summary) · ``exercise-solutions.ipynb``
      - `./ch07 <https://github.com/SeyhaLite/LLMs-from-scratch/tree/main/កូដ/ch07>`_
 
-កូដមេទាំងអស់ស្ថិតនៅក្នុងថតย่อย ``01_main-chapter-code`` នៃជំពូកនីមួយៗ។
+កូដមេទាំងអស់ស្ថិតនៅក្នុងថតរង ``01_main-chapter-code`` នៃជំពូកនីមួយៗ។
 
 លំហាត់ និងការធ្វើតេស្តចំណេះដឹង
 -------------------------------------
@@ -119,17 +119,17 @@
   `./ch02/01_main-chapter-code/exercise-solutions.ipynb
   <https://github.com/SeyhaLite/LLMs-from-scratch/blob/main/ណូតប៊ុក-ខ្មែរ/ជំពូក២-ចម្លើយលំហាត់.ipynb>`_។
 - មាន PDF ឥតគិតថ្លៃ 170 ទំព័រ `Test Yourself On Build a Large Language Model (From Scratch)
-  <https://www.manning.com/books/test-yourself-on-build-a-large-language-model-from-scratch>`_
+  <https://www.manning.com/books/test-yourself-on-sebastian-raschkas-build-a-large-language-model-from-scratch>`_
   ពីគេហទំព័រ Manning ដែលមានសំណួរ quiz ប្រហែល 30 សំណួរ និងចម្លើយក្នុងមួយជំពូក។
 
 សៀវភៅបន្ត (Companion Book)
 -----------------------------
 
-`Build A Reasoning Model (From Scratch) <https://mng.bz/lZ5B>`_ គឺជាសៀវភៅឯករាជ្យមួយ
+`Build A Reasoning Model (From Scratch) <https://www.manning.com/books/build-a-reasoning-model-from-scratch>`_ គឺជាសៀវភៅឯករាជ្យមួយ
 ដែលអាចចាត់ទុកជាភាគបន្តនៃសៀវភៅនេះ។ វាចាប់ផ្តើមពីម៉ូដែល pretrained ហើយអនុវត្តវិធីសាស្ត្រ
 reasoning ផ្សេងៗ រួមមាន inference-time scaling, reinforcement learning និង distillation។
 
-- `Amazon link <https://amzn.to/4aAKiFY>`_ · `Manning link <https://mng.bz/lZ5B>`_ ·
+- `Amazon link <https://www.amazon.com/Build-Reasoning-Scratch-Sebastian-Raschka/dp/1633434672>`_ · `Manning link <https://www.manning.com/books/build-a-reasoning-model-from-scratch>`_ ·
   `GitHub repository <https://github.com/rasbt/reasoning-from-scratch>`_
 
 .. tip::
