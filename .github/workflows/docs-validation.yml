@@ -41,6 +41,8 @@ jobs:
         run: sphinx-build -W --keep-going -b html source build/html
 
       - name: Check external and internal documentation links
+        env:
+          SPHINX_LINKCHECK: "1"
         run: >-
           sphinx-build -W --keep-going -b linkcheck
           -D linkcheck_timeout=20
